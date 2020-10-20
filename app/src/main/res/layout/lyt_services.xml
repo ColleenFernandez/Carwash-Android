@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/package_bg">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descontaminado con ClayBar y quickdetailing"
+            android:textColor="@color/black"
+            android:id="@+id/txv_title1"
+            android:textSize="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/lyt_1"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:src="@drawable/edit"
+                android:layout_marginRight="5dp"
+                app:tint="@color/gray7" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/txv_price1"
+                android:layout_height="wrap_content"
+                android:text="$5000"
+                android:textSize="20dp"
+                android:textColor="@color/gray7"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:text="Select"
+                android:id="@+id/txv_select1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/homebuttonback"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

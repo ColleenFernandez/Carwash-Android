@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Wagen</string>
+    <string name="somethingwentwrong">Something went wrong</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="photo_upload_is_failed">Photo upload failed</string>
+    <string name="enter_firstname">Please enter first name</string>
+    <string name="enter_lastname">Please enter last name</string>
+    <string name="enterconfirmpass">Please enter confirm password</string>
+    <string name="entercorrectpass">Please enter correct confirm password</string>
+    <string name="enter_email">Please enter email</string>
+    <string name="enter_password">Please enter password</string>
+    <string name="signuptitle">SignUp</string>
+    <string name="hometitle">Home</string>
+    <string name="order1title">Select Car Type</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <array name="steps">
+        <item>Step 1</item>
+        <item>Step 2</item>
+        <item>Step 3</item>
+        <item>Step 4</item>
+    </array>
+    <array name="steptitles">
+        <item>Select Vehicle Type</item>
+        <item>Wash packages</item>
+        <item>Servicios adicionales</item>
+        <item>Date &amp; Time</item>
+    </array>
+
 </resources>
