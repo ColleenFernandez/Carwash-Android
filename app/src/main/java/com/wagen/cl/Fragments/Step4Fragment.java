@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 
+import com.applandeo.materialcalendarview.CalendarView;
 import com.wagen.cl.Activity.Order1Activity;
 import com.wagen.cl.R;
 
@@ -23,8 +23,7 @@ public class Step4Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_step4, container, false);
-        calendarView =(CalendarView)view.findViewById(R.id.calendar);
-
+        calendarView=(CalendarView)view.findViewById(R.id.calendarView);
         return view;
     }
 

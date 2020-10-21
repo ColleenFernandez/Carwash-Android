@@ -76,6 +76,36 @@
             android:textColor="@color/white"
             android:onClick="callloginapi"
             android:background="@drawable/loginbuttonback"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/loginbuttonback"
+                android:text="Continue with Google"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:onClick="withGoogle"
+                android:layout_marginTop="20dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/loginbuttonback"
+                android:text="Continue with Facebook"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                android:drawablePadding="20dp"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:onClick="withFacebook"
+                android:layout_marginTop="15dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

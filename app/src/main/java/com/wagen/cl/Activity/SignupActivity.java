@@ -3,14 +3,41 @@ package com.wagen.cl.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import java.security.NoSuchAlgorithmException;
+
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.Task;
 import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
@@ -25,7 +52,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +64,11 @@ public class SignupActivity extends BaseActivity {
     CircleImageView imvphoto;
     EditText etx_firstname, etx_lastname, etx_email, etx_phone, etx_password, etx_confirmpass;
     String photourl = "", socialid="";
+
+    public static CallbackManager callbackManager;
+    GoogleSignInClient mGoogleSignInClient;
+    GoogleApiClient mGoogleApiClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +81,41 @@ public class SignupActivity extends BaseActivity {
         etx_phone=(EditText)findViewById(R.id.etx_phone);
         etx_password=(EditText)findViewById(R.id.etx_password);
         etx_confirmpass=(EditText)findViewById(R.id.etx_confirmpassword);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.app.imageagent", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.i("KeyHash::", Base64.encodeToString(md.digest(), Base64.DEFAULT));//will give developer key hash
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        //        Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     public void backtologin(View view) {
@@ -131,6 +200,7 @@ public class SignupActivity extends BaseActivity {
                 userModel.social_id = user_info.getString("social_id");
                 Constants.userModel = userModel;
 
+
                 Preference.getInstance().put(this, PrefConst.PREFKEY_ID,String.valueOf(userModel.user_id));
 
 
@@ -175,6 +245,8 @@ public class SignupActivity extends BaseActivity {
                 }
                 Preference.getInstance().putSharedservicePreference(SignupActivity.this, PrefConst.PREFKEY_SERVICES, services1);
 
+                if( userModel.account_type== 1) socialLogout();
+
                 Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -185,5 +257,137 @@ public class SignupActivity extends BaseActivity {
             e.printStackTrace();
             Toast.makeText(SignupActivity.this, getString(R.string.somethingwentwrong), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void withGoogle(View view) {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    public void withFacebook(View view) {
+        loginWithFB();
+    }
+
+    private void loginWithFB() {
+        // set permissions
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Profile profile = Profile.getCurrentProfile();
+
+                // Facebook Email address
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                Log.v("LoginActivity Response ", response.toString());
+
+                                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                                boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+                                Log.d("IsLoggedIn???", String.valueOf(isLoggedIn));
+
+                                Log.d("Login Token!!!", loginResult.getAccessToken().getToken());
+
+                                try {
+                                    String email = object.getString("email");
+                                    String first_name = object.getString("first_name");
+                                    String last_name = object.getString("last_name");
+                                    String picture = object.getString("picture");
+                                    Log.d("FB email: ", email);
+                                    processSocial(email, first_name, last_name, picture,"2");
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, name, first_name, last_name, email, gender, birthday, picture.type(large)");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+                LoginManager.getInstance().logOut();
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Log.d("Facebook login error!!!", e.getMessage());
+            }
+        });
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            // Signed in successfully, show authenticated UI.
+            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("LoginActivity", "signInResult:failed code=" + e.getStatusCode());
+            updateUI(null);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void updateUI(GoogleSignInAccount account){
+        if(account != null){
+            String name = account.getDisplayName();
+            String firstname = account.getGivenName();
+            String lastname = account.getFamilyName();
+            String photourl = String.valueOf(account.getPhotoUrl());
+            String personEmail = account.getEmail();
+            Log.d("name/email===>", name + "/" + personEmail);
+            processSocial(personEmail, firstname, lastname, photourl,"1");
+        }
+    }
+
+    private void processSocial(String email, String firstname, String lastname, String photourl, String signuptype) {
+        Map<String, String> params = new HashMap<>();
+        params.put("first_name", firstname);
+        params.put("last_name", lastname);
+        params.put("email", email);
+        params.put("password", "social");
+        params.put("phonenumber", "");
+        params.put("photo", photourl);
+        params.put("account_type", signuptype);
+        params.put("social_id", "");
+        call_postApi(Constants.BASE_URL, "registerUser", params);
+    }
+
+    private void socialLogout(){
+        if (AccessToken.getCurrentAccessToken() != null && com.facebook.Profile.getCurrentProfile() != null){
+            //Logged in so show the login button
+            LoginManager.getInstance().logOut();
+        }
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // ...
+                    }
+                });
     }
 }

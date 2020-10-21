@@ -147,6 +147,39 @@
                 android:textColor="@color/white"
                 android:onClick="callsignupapi"
                 android:background="@drawable/loginbuttonback"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/loginbuttonback"
+                android:text="Continue with Google"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:onClick="withGoogle"
+                android:layout_marginTop="20dp"
+               />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/loginbuttonback"
+                android:text="Continue with Facebook"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                android:drawablePadding="20dp"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:onClick="withFacebook"
+                android:layout_marginTop="15dp"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,7 +189,7 @@
                 android:padding="5dp"
                 android:onClick="gotologin"
                 android:textColor="@color/black"
-                android:text="Back to LOGIN"
+                android:text="@string/backtologin"
                 android:layout_marginBottom="30dp"
                 />
 
