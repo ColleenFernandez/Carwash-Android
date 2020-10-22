@@ -22,8 +22,15 @@
     <string name="backtologin">Volver al ingreso</string>
     <string name="hometitle">Home</string>
     <string name="order1title">Select Car Type</string>
+    <string name="bookingsumary">Booking Summary</string>
     <string name="verifycode">Verify Code</string>
     <string name="back">Back</string>
+    <string name="selectcar">Please select a car</string>
+    <string name="selectpackage">Please select a Package</string>
+    <string name="yourappointmentdate">Your Appointment Date</string>
+    <string name="yourappointmenttime">Your Appointment Time</string>
+    <string name="duration">Duration</string>
+    <string name="totalprice">Total Price</string>
 
     <string name="passupdatesuccess">Password updated successfully, please try login</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -39,6 +46,25 @@
         <item>Wash packages</item>
         <item>Servicios adicionales</item>
         <item>Date &amp; Time</item>
+    </array>
+    <array name="timearray">
+        <item>09:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>13:00</item>
+        <item>13:30</item>
+        <item>14:00</item>
+        <item>14:30</item>
+        <item>15:00</item>
+        <item>15:30</item>
+        <item>16:00</item>
+        <item>16:30</item>
+        <item>17:00</item>
+        <item>17:30</item>
     </array>
 
 </resources>

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.wagen.cl.Constant.Constants;
+import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.R;
 import com.wagen.cl.Utils.BaseActivity;
 
@@ -15,6 +17,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Constants.orderModel = new OrderModel();
     }
 
     public void gotobookingservice(View view) {

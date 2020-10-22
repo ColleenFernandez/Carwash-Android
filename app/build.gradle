@@ -81,6 +81,8 @@ dependencies {
     implementation 'com.shuhart.stepview:stepview:1.5.1'
 
     implementation 'com.applandeo:material-calendar-view:1.4.0'
+    implementation 'com.github.RobertApikyan:SegmentedControl:1.2.0'
+
     implementation 'com.github.GoodieBag:Pinview:v1.4'
 
 

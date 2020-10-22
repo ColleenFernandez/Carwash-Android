@@ -19,7 +19,7 @@
     <item>
         <shape>
             <solid
-                android:color="@color/bright" />
+                android:color="@color/mandatory" />
 
             <stroke
                 android:width="2dp"

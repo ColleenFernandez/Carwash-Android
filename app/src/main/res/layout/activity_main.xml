@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Activity.MainActivity">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/hometitle"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="22dp"
             android:layout_gravity="center"/>
     </FrameLayout>
@@ -52,16 +54,16 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/edit"
+                    android:src="@drawable/booking_service"
                     android:layout_gravity="center"
-                    app:tint="@color/white" />
+                    app:tint="@color/gray_color" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reservar\nlavado"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/gray_color"
+                    android:textSize="16dp"/>
 
             </LinearLayout>
             <LinearLayout
@@ -74,16 +76,16 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/edit"
+                    android:src="@drawable/my_booking"
                     android:layout_gravity="center"
-                    app:tint="@color/white" />
+                    app:tint="@color/gray_color" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mis\nreservas"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/gray_color"
+                    android:textSize="16dp"/>
 
             </LinearLayout>
 
@@ -107,16 +109,17 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/edit"
+                    android:src="@drawable/my_profile"
                     android:layout_gravity="center"
-                    app:tint="@color/white" />
+                    app:tint="@color/gray_color" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mi perfil"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/gray_color"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
             <LinearLayout
@@ -129,16 +132,17 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/edit"
+                    android:src="@drawable/setting"
                     android:layout_gravity="center"
-                    app:tint="@color/white" />
+                    app:tint="@color/gray_color" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Configuración"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/gray_color"
+                    android:textSize="16dp"
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
 

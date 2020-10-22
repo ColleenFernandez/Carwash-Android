@@ -19,11 +19,11 @@
     <item>
         <shape>
             <solid
-                android:color="@color/mandatory" />
+                android:color="@color/edittext_bg" />
 
             <stroke
                 android:width="2dp"
-                android:color="@color/mandatory" />
+                android:color="@color/edittext_bg" />
             <corners
                 android:topRightRadius="10dp"
                 android:bottomRightRadius="10dp"/>

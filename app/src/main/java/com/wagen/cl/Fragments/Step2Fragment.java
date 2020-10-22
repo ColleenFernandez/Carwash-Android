@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wagen.cl.Activity.Order1Activity;
 import com.wagen.cl.Constant.Constants;
@@ -30,10 +31,14 @@ public class Step2Fragment extends Fragment {
     Order1Activity order1Activity;
     TextView txv_title1, txv_title2, txv_title3, txv_title4;
     TextView txv_price1, txv_price2, txv_price3, txv_price4;
+    TextView txv_time1, txv_time2, txv_time3, txv_time4;
     TextView txv_des1, txv_des2, txv_des3, txv_des4;
     LinearLayout lyt_1,lyt_2,lyt_3,lyt_4;
+    TextView txv_1,txv_2,txv_3,txv_4;
     LinearLayout firstitem;
     ArrayList<Packages> packages = new ArrayList<>();
+    TextView txv_option1, txv_option2;
+    int previtem = 0;
 
 
 
@@ -59,22 +64,37 @@ public class Step2Fragment extends Fragment {
         txv_price3=(TextView)view.findViewById(R.id.txv_price3);
         txv_price4=(TextView)view.findViewById(R.id.txv_price4);
 
+        txv_time1=(TextView)view.findViewById(R.id.txv_time1);
+        txv_time2=(TextView)view.findViewById(R.id.txv_time2);
+        txv_time3=(TextView)view.findViewById(R.id.txv_time3);
+        txv_time4=(TextView)view.findViewById(R.id.txv_time4);
+
         txv_des1=(TextView)view.findViewById(R.id.txv_des1);
         txv_des2=(TextView)view.findViewById(R.id.txv_des2);
         txv_des3=(TextView)view.findViewById(R.id.txv_des3);
         txv_des4=(TextView)view.findViewById(R.id.txv_des4);
 
+        txv_1 =(TextView)view.findViewById(R.id.txv_1);
+        txv_2 =(TextView)view.findViewById(R.id.txv_2);
+        txv_3 =(TextView)view.findViewById(R.id.txv_3);
+        txv_4 =(TextView)view.findViewById(R.id.txv_4);
+
+
         txv_title1.setText(packages.get(0).package_name);
         txv_price1.setText("$"+numberformating(packages.get(0).package_price));
+        txv_time1.setText(packages.get(0).package_time+"Mins");
         txv_des1.setText(packages.get(0).package_description.replaceAll("_","\n"));
         txv_title2.setText(packages.get(1).package_name);
         txv_price2.setText("$"+numberformating(packages.get(1).package_price));
+        txv_time2.setText(packages.get(1).package_time+"Mins");
         txv_des2.setText(packages.get(1).package_description.replaceAll("_","\n"));
         txv_title3.setText(packages.get(2).package_name);
         txv_price3.setText("$"+numberformating(packages.get(2).package_price));
+        txv_time3.setText(packages.get(2).package_time+"Mins");
         txv_des3.setText(packages.get(2).package_description.replaceAll("_","\n"));
         txv_title4.setText(packages.get(3).package_name);
         txv_price4.setText("$"+numberformating(packages.get(3).package_price));
+        txv_time4.setText(packages.get(3).package_time+"Mins");
         txv_des4.setText(packages.get(3).package_description.replaceAll("_","\n"));
 
         lyt_1.setOnClickListener(new View.OnClickListener() {
@@ -103,20 +123,65 @@ public class Step2Fragment extends Fragment {
             }
         });
 
+        txv_option1 =(TextView)view.findViewById(R.id.txv_option1);
+        txv_option2 =(TextView)view.findViewById(R.id.txv_option2);
+        txv_option1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selected_option1();
+            }
+        });
+        txv_option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selected_option2();
+            }
+        });
 
-
+        TextView txv_next =(TextView)view.findViewById(R.id.txv_next);
+        txv_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Constants.orderModel.package_id == -1){
+                    Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
+                }else{
+                    order1Activity.gotonextstep(2);
+                }
+            }
+        });
 
         return view;
+    }
+
+    private void selected_option2() {
+        if(previtem ==0){
+            txv_option1.setTextColor(getResources().getColor(R.color.black));
+            txv_option1.setBackgroundResource(R.drawable.segment_bg);
+            txv_option2.setTextColor(getResources().getColor(R.color.white));
+            txv_option2.setBackgroundResource(R.drawable.loginbuttonback);
+            firstitem.setVisibility(View.GONE);
+            previtem = 1;
+            refreshbuttons(-1);
+        }
+    }
+
+    private void selected_option1() {
+        if(previtem ==1){
+            txv_option2.setTextColor(getResources().getColor(R.color.black));
+            txv_option2.setBackgroundResource(R.drawable.segment_bg);
+            txv_option1.setTextColor(getResources().getColor(R.color.white));
+            txv_option1.setBackgroundResource(R.drawable.loginbuttonback);
+            firstitem.setVisibility(View.VISIBLE);
+            previtem = 0;
+            refreshbuttons(-1);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d("carid==", String.valueOf(Constants.orderModel.car_id));
-        if(Constants.orderModel.package_id == 1) lyt_1.setBackgroundResource(R.drawable.package_select);
-        if(Constants.orderModel.package_id == 2) lyt_2.setBackgroundResource(R.drawable.package_select);
-        if(Constants.orderModel.package_id == 3) lyt_3.setBackgroundResource(R.drawable.package_select);
-        if(Constants.orderModel.package_id == 4) lyt_4.setBackgroundResource(R.drawable.package_select);
+        refreshbuttons(Constants.orderModel.package_id-1);
     }
 
     public void refreshbuttons(int position){
@@ -126,24 +191,50 @@ public class Step2Fragment extends Fragment {
             lyt_2.setBackgroundResource(R.drawable.package_unselect);
             lyt_3.setBackgroundResource(R.drawable.package_unselect);
             lyt_4.setBackgroundResource(R.drawable.package_unselect);
+            txv_1.setTextColor(getResources().getColor(R.color.white));
+            txv_2.setTextColor(getResources().getColor(R.color.black));
+            txv_3.setTextColor(getResources().getColor(R.color.black));
+            txv_4.setTextColor(getResources().getColor(R.color.black));
         }
         if(position == 1){
             lyt_2.setBackgroundResource(R.drawable.package_select);
             lyt_1.setBackgroundResource(R.drawable.package_unselect);
             lyt_3.setBackgroundResource(R.drawable.package_unselect);
             lyt_4.setBackgroundResource(R.drawable.package_unselect);
+            txv_2.setTextColor(getResources().getColor(R.color.white));
+            txv_1.setTextColor(getResources().getColor(R.color.black));
+            txv_3.setTextColor(getResources().getColor(R.color.black));
+            txv_4.setTextColor(getResources().getColor(R.color.black));
         }
         if(position == 2){
             lyt_3.setBackgroundResource(R.drawable.package_select);
             lyt_2.setBackgroundResource(R.drawable.package_unselect);
             lyt_1.setBackgroundResource(R.drawable.package_unselect);
             lyt_4.setBackgroundResource(R.drawable.package_unselect);
+            txv_3.setTextColor(getResources().getColor(R.color.white));
+            txv_2.setTextColor(getResources().getColor(R.color.black));
+            txv_1.setTextColor(getResources().getColor(R.color.black));
+            txv_4.setTextColor(getResources().getColor(R.color.black));
         }
         if(position == 3){
             lyt_4.setBackgroundResource(R.drawable.package_select);
             lyt_2.setBackgroundResource(R.drawable.package_unselect);
             lyt_3.setBackgroundResource(R.drawable.package_unselect);
             lyt_1.setBackgroundResource(R.drawable.package_unselect);
+            txv_4.setTextColor(getResources().getColor(R.color.white));
+            txv_2.setTextColor(getResources().getColor(R.color.black));
+            txv_3.setTextColor(getResources().getColor(R.color.black));
+            txv_1.setTextColor(getResources().getColor(R.color.black));
+        }
+        if(position == -1){
+            lyt_4.setBackgroundResource(R.drawable.package_unselect);
+            lyt_2.setBackgroundResource(R.drawable.package_unselect);
+            lyt_3.setBackgroundResource(R.drawable.package_unselect);
+            lyt_1.setBackgroundResource(R.drawable.package_unselect);
+            txv_1.setTextColor(getResources().getColor(R.color.black));
+            txv_2.setTextColor(getResources().getColor(R.color.black));
+            txv_3.setTextColor(getResources().getColor(R.color.black));
+            txv_4.setTextColor(getResources().getColor(R.color.black));
         }
     }
     @Override
