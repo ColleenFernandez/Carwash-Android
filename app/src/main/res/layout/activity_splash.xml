@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,25 +8,31 @@
     tools:context=".Activity.SplashActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_gravity="center">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Car Wash"/>
+            android:src="@drawable/logo_splash"
+            android:layout_gravity="center"/>
+
         <ProgressBar
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"/>
+            android:layout_marginTop="180dp"/>
+
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="2020 Andres O All Rights Reversed"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"/>
 
 
-</FrameLayout>
+</LinearLayout>

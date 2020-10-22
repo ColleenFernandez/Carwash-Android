@@ -81,6 +81,8 @@ dependencies {
     implementation 'com.shuhart.stepview:stepview:1.5.1'
 
     implementation 'com.applandeo:material-calendar-view:1.4.0'
+    implementation 'com.github.GoodieBag:Pinview:v1.4'
+
 
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation 'com.google.android.gms:play-services-base:16.1.0'

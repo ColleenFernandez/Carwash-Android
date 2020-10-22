@@ -13,6 +13,7 @@
 
     <color name="mandatory">#FF6900</color>
     <color name="secondary">#747574</color>
+    <color name="edittext_bg">#F4F4FA</color>
 
     <color name="gray1">#eae7e7</color>
     <color name="gray2">#DBD8D8</color>

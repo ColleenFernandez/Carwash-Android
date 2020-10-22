@@ -61,7 +61,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignupActivity extends BaseActivity {
-    CircleImageView imvphoto;
+   // CircleImageView imvphoto;
     EditText etx_firstname, etx_lastname, etx_email, etx_phone, etx_password, etx_confirmpass;
     String photourl = "", socialid="";
 
@@ -74,7 +74,7 @@ public class SignupActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        imvphoto=(CircleImageView)findViewById(R.id.imv_photo);
+        //imvphoto=(CircleImageView)findViewById(R.id.imv_photo);
         etx_firstname=(EditText)findViewById(R.id.etx_firstname);
         etx_lastname=(EditText)findViewById(R.id.etx_lastname);
         etx_email=(EditText)findViewById(R.id.etx_email);
@@ -122,7 +122,7 @@ public class SignupActivity extends BaseActivity {
         back();
     }
 
-    public void editphoto(View view) {
+    /*public void editphoto(View view) {
         selectPhoto();
     }
     public void returnimageurl(String imageurl){
@@ -130,7 +130,7 @@ public class SignupActivity extends BaseActivity {
         Glide.with(this)
                 .load(Uri.parse(imageurl))
                 .into(imvphoto);
-    }
+    }*/
 
     public void callsignupapi(View view) {
         if(checkvalid()){

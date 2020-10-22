@@ -29,21 +29,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ForgotActivity extends BaseActivity {
-    LinearLayout lytforgot;
-    EditText etxemail, etxcode, etxpassword, etxconfirmpass;
-    String verifycode = "-1";
+
+    EditText etxemail;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot);
-        lytforgot=(LinearLayout)findViewById(R.id.lyt_forgot);
         etxemail=(EditText)findViewById(R.id.etx_email);
-        etxcode=(EditText)findViewById(R.id.etx_code);
-        etxpassword=(EditText)findViewById(R.id.etx_password);
-        etxconfirmpass=(EditText)findViewById(R.id.etx_confirmpassword);
-        lytforgot.setVisibility(View.GONE);
     }
 
     public void backtologin(View view) {
@@ -62,43 +57,14 @@ public class ForgotActivity extends BaseActivity {
     }
 
     public void callforgot(View view) {
-        if(lytforgot.getVisibility() == View.VISIBLE){
-            if(checkvalid()) callupdatepassword();
-        }else{
-            if(etxemail.getText().toString().length()==0){
-                Toast.makeText(this, R.string.enter_email, Toast.LENGTH_SHORT).show();
-            }else{
-                callconfirmemail();
-            }
-        }
-    }
-    public Boolean checkvalid(){
         if(etxemail.getText().toString().length()==0){
             Toast.makeText(this, R.string.enter_email, Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(etxcode.getText().toString().length()==0 || !etxcode.getText().toString().equals(verifycode)){
-            Toast.makeText(this, R.string.enter_corret_code, Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(etxpassword.getText().toString().length()==0){
-            Toast.makeText(this, R.string.enter_password, Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(etxconfirmpass.getText().toString().length()==0){
-            Toast.makeText(this, R.string.enterconfirmpass, Toast.LENGTH_SHORT).show();
-            return false;
-        }else if(!etxpassword.getText().toString().equals(etxconfirmpass.getText().toString())){
-            Toast.makeText(this, R.string.entercorrectpass, Toast.LENGTH_SHORT).show();
-            return false;
         }else{
-            return true;
+            callconfirmemail();
         }
+
     }
 
-    private void callupdatepassword() {
-        Map<String, String> params = new HashMap<>();
-        params.put("email", etxemail.getText().toString());
-        params.put("password", etxpassword.getText().toString());
-        call_postApi(Constants.BASE_URL, "updatepassword", params);
-    }
 
     private void callconfirmemail() {
         Map<String, String> params = new HashMap<>();
@@ -109,15 +75,11 @@ public class ForgotActivity extends BaseActivity {
         try {
             String result_code = response.getString("message");
             if (result_code.equals("success")) {
-                if(method.equals("forgotconfirmemail")){
-                    verifycode = response.getString("verificationcode");
-                    Log.d("verifycode==", verifycode);
-                    if(lytforgot.getVisibility() == View.GONE) lytforgot.setVisibility(View.VISIBLE);
-                }else{
-                    Toast.makeText(this, R.string.passupdatesuccess, Toast.LENGTH_SHORT).show();
-                    back();
-                }
-
+                Constants.verifycode = response.getString("verificationcode");
+                Log.d("verifycode==", Constants.verifycode);
+                Intent intent = new Intent(this, Forgot2Activity.class);
+                startActivity(intent);
+                finish();
             }else {
                 Toast.makeText(this, result_code, Toast.LENGTH_SHORT).show();
             }

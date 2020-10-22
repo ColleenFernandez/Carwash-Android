@@ -16,4 +16,5 @@ public class Constants {
     public static UserModel userModel= new UserModel();
     public static OrderModel orderModel = new OrderModel();
     public static int selectedvehicle = -1;
+    public static String verifycode = "-1";
 }

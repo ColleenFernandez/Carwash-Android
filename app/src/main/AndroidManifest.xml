@@ -29,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".Activity.ForgotActivity"></activity>
+        <activity android:name=".Activity.Forgot2Activity"></activity>
+        <activity android:name=".Activity.ForgotActivity" />
 
         <provider
             android:name=".Utils.GenericFileProvider"
