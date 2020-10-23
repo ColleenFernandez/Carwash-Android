@@ -21,6 +21,7 @@
     <string name="forgottitle">Forgot Password</string>
     <string name="backtologin">Volver al ingreso</string>
     <string name="hometitle">Home</string>
+    <string name="aboutcompay">About Company</string>
     <string name="order1title">Select Car Type</string>
     <string name="bookingsumary">Booking Summary</string>
     <string name="verifycode">Verify Code</string>
@@ -29,8 +30,12 @@
     <string name="selectpackage">Please select a Package</string>
     <string name="yourappointmentdate">Your Appointment Date</string>
     <string name="yourappointmenttime">Your Appointment Time</string>
+    <string name="appointdate">Appointment Date : </string>
+    <string name="apointtime">Appointment Time : </string>
     <string name="duration">Duration</string>
     <string name="totalprice">Total Price</string>
+    <string name="viewreview">Give Review</string>
+    <string name="purchasemembership">Purechese Membership</string>
 
     <string name="passupdatesuccess">Password updated successfully, please try login</string>
     <!-- TODO: Remove or change this placeholder text -->

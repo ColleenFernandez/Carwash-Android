@@ -21,39 +21,65 @@
             android:textSize="22dp"
             android:layout_gravity="center"/>
     </FrameLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
 
-    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewpager"/>
+        <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
+            android:id="@+id/indicator_line"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:vpi_default_color="#cdcdcd"
+            app:vpi_indicatorType="CIRCLE"
+            app:vpi_length="24dp"
+            app:vpi_radius="6dp"
+            android:layout_gravity="bottom"
+            app:vpi_selected_color="@color/colorPrimary"
+            />
+
+    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="@string/purchasemembership"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:onClick="gotopurchase"
+        android:background="@drawable/loginbuttonback"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
             >
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_marginRight="30dp"
                 android:onClick="gotobookingservice"
                 android:background="@drawable/homebuttonback">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/booking_service"
                     android:layout_gravity="center"
                     app:tint="@color/gray_color" />
@@ -63,19 +89,19 @@
                     android:text="Reservar\nlavado"
                     android:gravity="center"
                     android:textColor="@color/gray_color"
-                    android:textSize="16dp"/>
+                    android:textSize="14dp"/>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:onClick="gotomybooking"
                 android:background="@drawable/homebuttonback">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/my_booking"
                     android:layout_gravity="center"
                     app:tint="@color/gray_color" />
@@ -85,14 +111,15 @@
                     android:text="Mis\nreservas"
                     android:gravity="center"
                     android:textColor="@color/gray_color"
-                    android:textSize="16dp"/>
+                    android:textSize="14dp"/>
 
             </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
@@ -100,15 +127,15 @@
             >
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:onClick="gotomyprofile"
                 android:orientation="vertical"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/homebuttonback">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/my_profile"
                     android:layout_gravity="center"
                     app:tint="@color/gray_color" />
@@ -118,20 +145,20 @@
                     android:text="Mi perfil"
                     android:gravity="center"
                     android:textColor="@color/gray_color"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:layout_marginTop="5dp"/>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:onClick="gotosetting"
                 android:orientation="vertical"
                 android:background="@drawable/homebuttonback">
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/setting"
                     android:layout_gravity="center"
                     app:tint="@color/gray_color" />
@@ -141,11 +168,45 @@
                     android:text="Configuración"
                     android:gravity="center"
                     android:textColor="@color/gray_color"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:layout_marginTop="5dp"/>
 
             </LinearLayout>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="gotoreview"
+                android:orientation="vertical"
+                android:background="@drawable/homebuttonback">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_review"
+                    android:layout_gravity="center"
+                    app:tint="@color/gray_color" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewreview"
+                    android:gravity="center"
+                    android:textColor="@color/gray_color"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

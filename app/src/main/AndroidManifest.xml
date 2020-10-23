@@ -29,7 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".Activity.OrderdetailActivity"></activity>
+        <activity android:name=".Activity.MybookingActivity"></activity>
+        <activity android:name=".Activity.FullpromotionActivity" />
+        <activity android:name=".Activity.OrderdetailActivity" />
         <activity android:name=".Activity.Forgot2Activity" />
         <activity android:name=".Activity.ForgotActivity" />
 

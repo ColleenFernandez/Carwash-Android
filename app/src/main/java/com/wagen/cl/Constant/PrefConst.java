@@ -13,6 +13,7 @@ public class PrefConst {
     public static final String PREFKEY_CARS = "cars";
     public static final String PREFKEY_SERVICES = "services";
     public static final String PREFKEY_PACKAGES = "packages";
+    public static final String PREFKEY_Promotion = "promotion";
 
     public static final String LOADING_DATA_TYPE="loadingdatatype";   // 0: current log, 1: archived data
 
