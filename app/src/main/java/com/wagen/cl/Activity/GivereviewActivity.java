@@ -9,21 +9,12 @@ import android.view.View;
 import com.wagen.cl.R;
 import com.wagen.cl.Utils.BaseActivity;
 
-public class ProfileActivity extends BaseActivity {
+public class GivereviewActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-
+        setContentView(R.layout.activity_givereview);
     }
 
     public void goback(View view) {
@@ -32,6 +23,13 @@ public class ProfileActivity extends BaseActivity {
         finish();
     }
 
-    public void callupdateprofile(View view) {
+    public void callreviewapi(View view) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

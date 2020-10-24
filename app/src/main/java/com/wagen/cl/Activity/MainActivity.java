@@ -102,12 +102,21 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotosetting(View view) {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void gotoreview(View view) {
+        Intent intent = new Intent(this, GivereviewActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void gotopurchase(View view) {
+        Intent intent = new Intent(this, MembershipActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

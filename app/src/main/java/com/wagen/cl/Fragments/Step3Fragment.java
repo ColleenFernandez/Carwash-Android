@@ -61,12 +61,12 @@ public class Step3Fragment extends Fragment {
             txvtime.setText(services.get(i).service_time+"Mins");
             TextView txv_button = (TextView)child.findViewById(R.id.txv_select1);
             if(Constants.orderModel.serviceselected_status[i]==1){
-                txv_button.setBackgroundResource(R.drawable.selectedbuttonback);
-                txv_button.setTextColor(getResources().getColor(R.color.white));
-                txv_button.setText("Selected");
-            }else{
                 txv_button.setBackgroundResource(R.drawable.homebuttonback);
                 txv_button.setTextColor(getResources().getColor(R.color.black));
+                txv_button.setText("Selected");
+            }else{
+                txv_button.setBackgroundResource(R.drawable.selectedbuttonback);
+                txv_button.setTextColor(getResources().getColor(R.color.white));
                 txv_button.setText("Select");
             }
             txv_button.setId(i);
@@ -75,14 +75,14 @@ public class Step3Fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(Constants.orderModel.serviceselected_status[finalI]==1){
-                        txv_button.setBackgroundResource(R.drawable.homebuttonback);
+                        txv_button.setBackgroundResource(R.drawable.selectedbuttonback);
                         Constants.orderModel.serviceselected_status[finalI] = 0;
-                        txv_button.setTextColor(getResources().getColor(R.color.black));
+                        txv_button.setTextColor(getResources().getColor(R.color.white));
                         txv_button.setText("Select");
                     }else{
-                        txv_button.setBackgroundResource(R.drawable.selectedbuttonback);
+                        txv_button.setBackgroundResource(R.drawable.homebuttonback);
                         Constants.orderModel.serviceselected_status[finalI] = 1;
-                        txv_button.setTextColor(getResources().getColor(R.color.white));
+                        txv_button.setTextColor(getResources().getColor(R.color.black));
                         txv_button.setText("Selected");
                     }
                 }

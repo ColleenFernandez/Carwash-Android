@@ -115,6 +115,7 @@ public class Step1Fragment extends Fragment {
                 if(Constants.orderModel.car_id == -1){
                     Toast.makeText(order1Activity, R.string.selectcar, Toast.LENGTH_SHORT).show();
                 }else{
+
                     order1Activity.gotonextstep(1);
                 }
             }

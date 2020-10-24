@@ -1,6 +1,8 @@
 package com.wagen.cl.Fragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -145,7 +156,14 @@ public class Step2Fragment extends Fragment {
                 if(Constants.orderModel.package_id == -1){
                     Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
                 }else{
-                    order1Activity.gotonextstep(2);
+                    ArrayList<String> cities = new ArrayList<>();
+                    cities.add("Lo Barnechea");
+                    cities.add("Lo Barnechea");
+                    cities.add("Lo Barnechea");
+                    cities.add("Lo Barnechea");
+                    cities.add("Lo Barnechea");
+                    Constants.orderModel.order_type = previtem;
+                    selectcitydialog("José Alcalde Délano 10.581, Lo Barnechea.", cities);
                 }
             }
         });
@@ -251,5 +269,58 @@ public class Step2Fragment extends Fragment {
             return  yourFormattedString;
         }
     }
+
+
+    public void selectcitydialog(String shopaddress, ArrayList<String> cities){
+        LinearLayout lyt_address;
+        TextView txvtitle, txvshopaddress, txvnext;
+        Spinner cityspinner;
+        EditText etx_address;
+        final Dialog settingdialog = new Dialog(order1Activity);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.selectcity_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        lyt_address=(LinearLayout) settingdialog.findViewById(R.id.lyt_address);
+        txvtitle=(TextView) settingdialog.findViewById(R.id.txv_title);
+        txvshopaddress=(TextView) settingdialog.findViewById(R.id.txv_shopaddress);
+        txvnext =(TextView)settingdialog.findViewById(R.id.goto_next);
+        cityspinner=(Spinner)settingdialog.findViewById(R.id.city_spinner);
+        etx_address=(EditText)settingdialog.findViewById(R.id.etx_address);
+        if(Constants.orderModel.order_type == 0){
+            txvtitle.setText(getResources().getString(R.string.shopaddressis));
+            lyt_address.setVisibility(View.GONE);
+            txvshopaddress.setVisibility(View.VISIBLE);
+            txvshopaddress.setText(shopaddress);
+        }else{
+            lyt_address.setVisibility(View.VISIBLE);
+            txvshopaddress.setVisibility(View.GONE);
+            txvtitle.setText(getResources().getString(R.string.inputaddress));
+            ArrayAdapter aa = new ArrayAdapter(order1Activity ,android.R.layout.simple_spinner_item,cities);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            //Setting the ArrayAdapter data on the Spinner
+            cityspinner.setAdapter(aa);
+        }
+
+        txvnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Constants.orderModel.order_type == 1 && etx_address.getText().toString().length()==0){
+                    Toast.makeText(order1Activity, getResources().getString(R.string.inputaddress), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(Constants.orderModel.order_type == 1){
+                    Constants.orderModel.city =cities.get(cityspinner.getSelectedItemPosition());
+                    Constants.orderModel.address = etx_address.getText().toString();
+                }
+                settingdialog.dismiss();
+                order1Activity.gotonextstep(2);
+            }
+        });
+
+
+        settingdialog.show();
+    }
+
 
 }
