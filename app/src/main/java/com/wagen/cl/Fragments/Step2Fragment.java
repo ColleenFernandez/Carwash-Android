@@ -49,7 +49,7 @@ public class Step2Fragment extends Fragment {
     LinearLayout firstitem;
     ArrayList<Packages> packages = new ArrayList<>();
     TextView txv_option1, txv_option2;
-    int previtem = 0;
+    int previtem = 0, packageposition = -1;
 
 
 
@@ -153,18 +153,16 @@ public class Step2Fragment extends Fragment {
         txv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Constants.orderModel.package_id == -1){
+                if(packageposition == -1){
                     Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
                 }else{
-                    ArrayList<String> cities = new ArrayList<>();
-                    cities.add("Lo Barnechea");
-                    cities.add("Lo Barnechea");
-                    cities.add("Lo Barnechea");
-                    cities.add("Lo Barnechea");
-                    cities.add("Lo Barnechea");
+                    Constants.orderModel.package_id = packageposition+1;
+                    ArrayList<String> cities = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_CITIES);
                     Constants.orderModel.order_type = previtem;
-                    selectcitydialog("José Alcalde Délano 10.581, Lo Barnechea.", cities);
+                    String workshop = Preference.getInstance().getValue(order1Activity, "workshop","");
+                    selectcitydialog(workshop, cities);
                 }
+
             }
         });
 
@@ -172,7 +170,8 @@ public class Step2Fragment extends Fragment {
     }
 
     private void selected_option2() {
-        if(previtem ==0){
+        if(previtem != 1){
+            packageposition = -1;
             txv_option1.setTextColor(getResources().getColor(R.color.black));
             txv_option1.setBackgroundResource(R.drawable.segment_bg);
             txv_option2.setTextColor(getResources().getColor(R.color.white));
@@ -184,13 +183,14 @@ public class Step2Fragment extends Fragment {
     }
 
     private void selected_option1() {
-        if(previtem ==1){
+        if(previtem != 0){
             txv_option2.setTextColor(getResources().getColor(R.color.black));
             txv_option2.setBackgroundResource(R.drawable.segment_bg);
             txv_option1.setTextColor(getResources().getColor(R.color.white));
             txv_option1.setBackgroundResource(R.drawable.loginbuttonback);
             firstitem.setVisibility(View.VISIBLE);
             previtem = 0;
+            packageposition = -1;
             refreshbuttons(-1);
         }
     }
@@ -199,11 +199,15 @@ public class Step2Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("carid==", String.valueOf(Constants.orderModel.car_id));
+        if(Constants.orderModel.order_type == 0) selected_option1();
+        else if(Constants.orderModel.order_type == 1) selected_option2();
+
         refreshbuttons(Constants.orderModel.package_id-1);
     }
 
     public void refreshbuttons(int position){
-        Constants.orderModel.package_id = position+1;
+        packageposition = position;
+
         if(position == 0){
             lyt_1.setBackgroundResource(R.drawable.package_select);
             lyt_2.setBackgroundResource(R.drawable.package_unselect);
@@ -300,6 +304,11 @@ public class Step2Fragment extends Fragment {
             aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             //Setting the ArrayAdapter data on the Spinner
             cityspinner.setAdapter(aa);
+
+            if(Constants.orderModel.city.length()>0){
+                cityspinner.setSelection(selectedcitypostion(cities));
+                etx_address.setText(Constants.orderModel.address);
+            }
         }
 
         txvnext.setOnClickListener(new View.OnClickListener() {
@@ -320,6 +329,14 @@ public class Step2Fragment extends Fragment {
 
 
         settingdialog.show();
+    }
+
+    public int selectedcitypostion(ArrayList<String> cities){
+        int postion= 0;
+        for(int i=0; i<cities.size(); i++){
+            if(cities.get(i).equals(Constants.orderModel.city)) postion = i;
+        }
+        return  postion;
     }
 
 

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Promotionmodel;
 import com.wagen.cl.Model.Service;
@@ -140,6 +141,30 @@ public class Preference {
         return mSelectedList;
     }
 
+    public void putSharedmembershipPreference(Context context, String key, ArrayList<MembershipModel> value){
+        SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mPref.edit();
+        Gson gSon = new Gson();
+        String json = gSon.toJson(value);
+        editor.putString(key,json);
+        editor.commit();
+    }
+
+
+    public ArrayList<MembershipModel> getSharedmembershipPreference(Context context, String key ){
+        ArrayList<MembershipModel> mSelectedList = new ArrayList<MembershipModel>();
+        SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPref.getString(key, "");
+        if (json.isEmpty()){
+            mSelectedList = new ArrayList<MembershipModel>();
+        }else {
+            Type type =  new TypeToken<ArrayList<MembershipModel>>(){}.getType();
+            mSelectedList = gson.fromJson(json, type);
+        }
+        return mSelectedList;
+    }
+
 
     public void putSharedpackagesPreference(Context context, String key, ArrayList<Packages> value){
         SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
@@ -217,7 +242,7 @@ public class Preference {
 
 
 
-    public void putShared_workernames_Preference(Context context, String key, ArrayList<String> value){
+    public void putShared_cities_Preference(Context context, String key, ArrayList<String> value){
         SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
         Gson gSon = new Gson();
@@ -227,7 +252,7 @@ public class Preference {
     }
 
 
-    public ArrayList<String> getShared_workernames_Preference(Context context, String key ){
+    public ArrayList<String> getShared_cities_Preference(Context context, String key ){
         ArrayList<String> mSelectedList = new ArrayList<String>();
         SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
         Gson gson = new Gson();

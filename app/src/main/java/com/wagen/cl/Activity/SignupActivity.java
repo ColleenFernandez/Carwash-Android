@@ -42,6 +42,7 @@ import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Service;
 import com.wagen.cl.Model.UserModel;
@@ -198,6 +199,9 @@ public class SignupActivity extends BaseActivity {
                 userModel.photo = user_info.getString("photo");
                 userModel.account_type = user_info.getInt("account_type");
                 userModel.social_id = user_info.getString("social_id");
+                userModel.membership_last_renew =user_info.getString("membership_last_renew");
+                userModel.membership_id = user_info.getInt("membership_id");
+                userModel.membership_count = user_info.getInt("membership_count");
                 Constants.userModel = userModel;
 
 
@@ -244,6 +248,29 @@ public class SignupActivity extends BaseActivity {
                     services1.add(oneserviceModel);
                 }
                 Preference.getInstance().putSharedservicePreference(SignupActivity.this, PrefConst.PREFKEY_SERVICES, services1);
+
+                JSONArray cities = response.getJSONArray("cities");
+                ArrayList<String>cites_array = new ArrayList<>();
+                for(int i=0; i<cities.length(); i++){
+                    JSONObject city = cities.getJSONObject(i);
+
+                    cites_array.add(city.getString("city_name"));
+                }
+                Preference.getInstance().putShared_cities_Preference(SignupActivity.this, PrefConst.PREFKEY_CITIES, cites_array);
+
+                JSONArray memberships = response.getJSONArray("memberships");
+                ArrayList<MembershipModel> membershipModels = new ArrayList<>();
+                for(int i=0; i<memberships.length(); i++){
+                    JSONObject membership = memberships.getJSONObject(i);
+                    MembershipModel membershipModel = new MembershipModel();
+                    membershipModel.id = membership.getInt("id");
+                    membershipModel.title = membership.getString("title");
+                    membershipModel.max_order_per_month = membership.getInt("max_order_per_month");
+                    membershipModel.price = membership.getString("price");
+                    membershipModels.add(membershipModel);
+                }
+                Preference.getInstance().putSharedmembershipPreference(SignupActivity.this, PrefConst.PREFKEY_MEMBERSHIP, membershipModels);
+
 
                 if( userModel.account_type== 1) socialLogout();
 

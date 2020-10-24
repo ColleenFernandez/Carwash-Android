@@ -30,7 +30,7 @@
                 app:distributeEvenly="true"
                 app:textVerticalPadding="6dp"
                 app:radius="10dp"
-                app:segments="@array/timearray" />
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"

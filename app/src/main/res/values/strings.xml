@@ -27,6 +27,8 @@
     <string name="bookingsumary">Booking Summary</string>
     <string name="verifycode">Verify Code</string>
     <string name="settings">Settings</string>
+    <string name="noavailabletime">There is no avaialble time for this date</string>
+    <string name="selectatime">Please select a time</string>
     <string name="back">Back</string>
     <string name="givereview">Give Review</string>
     <string name="membership">MemberShip</string>
@@ -70,16 +72,6 @@
         <item>Servicios adicionales</item>
         <item>Date &amp; Time</item>
     </array>
-    <array name="timearray">
-        <item>09:30</item>
-        <item>10:30</item>
-        <item>11:30</item>
-        <item>12:30</item>
-        <item>13:30</item>
-        <item>14:30</item>
-        <item>15:30</item>
-        <item>16:30</item>
-        <item>17:30</item>
-    </array>
+
 
 </resources>

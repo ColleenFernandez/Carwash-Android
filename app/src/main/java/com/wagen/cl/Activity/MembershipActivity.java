@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.wagen.cl.Adapter.MembershipAdapter;
+import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.R;
 import com.wagen.cl.Utils.BaseActivity;
@@ -24,6 +25,7 @@ public class MembershipActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membership);
         listView =(ListView)findViewById(R.id.list_membership);
+
 
         for(int i=0; i< 2; i++){
             MembershipModel membershipModel = new MembershipModel();
