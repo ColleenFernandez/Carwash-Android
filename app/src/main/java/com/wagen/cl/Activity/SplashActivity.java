@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
+import com.google.firebase.FirebaseApp;
 import com.wagen.cl.R;
 import com.wagen.cl.Utils.BaseActivity;
 
@@ -14,9 +15,10 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_splash);
 
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(2000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);

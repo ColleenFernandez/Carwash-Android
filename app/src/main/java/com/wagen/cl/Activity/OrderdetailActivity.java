@@ -37,6 +37,7 @@ import java.util.Map;
 
 public class OrderdetailActivity extends BaseActivity {
     TextView txv_address, txv_appointdate, txv_appointtime, txv_duration, txv_price;
+    String phonenumber = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +98,26 @@ public class OrderdetailActivity extends BaseActivity {
 
 
     public void placeorder(View view) {
-       /* Intent intent = new Intent(this, MainActivity.class);
+       Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();*/
-       selectpaymentmethoddialog();
+        finish();
+       /*if(Constants.userModel.phoneverify_status == 0){
+           confirmedphonenumber(Constants.userModel.phonenumber);
+       }else{
+         selectpaymentmethoddialog();
+       }*/
+    }
+    public void confirmedphonenumber(String toString) {
+        phonenumber = toString;
+        updateprofile(toString);
+    }
+
+    private void updateprofile(String phonenumber) {
+        Map<String, String> params = new HashMap<>();
+        params.put("phonenumber", phonenumber);
+        params.put("phone_verifystatus", "1");
+        params.put("user_id", String.valueOf(Constants.userModel.user_id));
+        call_postApi(Constants.BASE_URL, "updateprofile", params);
     }
 
     public void goback(View view) {
@@ -183,10 +200,16 @@ public class OrderdetailActivity extends BaseActivity {
         try {
             String result_code = response.getString("message");
             if (result_code.equals("success")) {
-                Toast.makeText(OrderdetailActivity.this, "Successfully ordered", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                if(method.equals("updateprofile")){
+                    Constants.userModel.phonenumber = phonenumber;
+                    Constants.userModel.phoneverify_status = 1;
+                    selectpaymentmethoddialog();
+                }else{
+                    Toast.makeText(OrderdetailActivity.this, "Successfully ordered", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }else {
                 Toast.makeText(OrderdetailActivity.this, result_code, Toast.LENGTH_SHORT).show();
             }

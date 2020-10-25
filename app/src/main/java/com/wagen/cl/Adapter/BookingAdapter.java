@@ -17,6 +17,7 @@ import com.wagen.cl.Activity.MybookingActivity;
 import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BookingAdapter extends BaseAdapter {
@@ -75,8 +76,8 @@ public class BookingAdapter extends BaseAdapter {
         final OrderModel trip1 = (OrderModel) navitems.get(position);
 
         holder.txvtime.setText(trip1.order_time);
-        holder.txvdate.setText(trip1.order_date);
-        holder.txvprice.setText(" : "+trip1.total_price+" CLP");
+        holder.txvdate.setText(changedateformattoappstyle(trip1.order_date));
+        holder.txvprice.setText(" : "+chagnenumberformat(trip1.total_price)+" CLP");
         holder.txvduration.setText(" : "+trip1.duration_time+"MINS");
 
         return convertView;
@@ -92,6 +93,10 @@ public class BookingAdapter extends BaseAdapter {
         String[] datearray=date.split("-");
         String newformate=datearray[1]+"/"+datearray[2]+"/"+datearray[0];
         return newformate;
+    }
+    public String chagnenumberformat(String number){
+        DecimalFormat f = new DecimalFormat("#,###");
+         return  f.format(Double.parseDouble(number));
     }
 
 

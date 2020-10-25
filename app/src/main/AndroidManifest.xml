@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".Activity.MembershipActivity"></activity>
+        <activity android:name=".Activity.MembershipActivity" />
         <activity android:name=".Activity.GivereviewActivity" />
         <activity android:name=".Activity.SettingActivity" />
         <activity android:name=".Activity.MybookingActivity" />

@@ -16,6 +16,9 @@ public class OrderModel {
     public String city = "";
     public String address = "";
     public Integer[] serviceselected_status = new Integer[]{0,0,0,0,0,0,0,0,0,0};
+    public float order_rating = -1;
+    public String order_comment = "";
+    public ArrayList<Service> services = new ArrayList<>();
 
     public void setOrder_id(int order_id) {
         this.order_id = order_id;

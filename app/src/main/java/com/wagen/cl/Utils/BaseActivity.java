@@ -2,6 +2,7 @@ package com.wagen.cl.Utils;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -10,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,11 +21,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -34,6 +43,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import com.goodiebag.pinview.Pinview;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.soundcloud.android.crop.Crop;
 import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.R;
@@ -51,6 +68,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -68,7 +86,11 @@ public class BaseActivity extends AppCompatActivity {
         progressBar.setCancelable(true);
         progressBar.setMessage("Please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setCancelable(false);
         progressBar.setProgress(0);
+
+       /* FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.setLanguageCode("fr");*/
     }
 
     public void call_postApi(String baseurl, String method, Map<String, String> params){
@@ -431,6 +453,94 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public void firebasephoneverification(String phonenumber){
+        EditText etx_phone;
+        Pinview etx_code;
+        TextView goto_next, goto_confirm;
+
+        final Dialog settingdialog = new Dialog(BaseActivity.this);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.phoneverify_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+
+        etx_phone=(EditText) settingdialog.findViewById(R.id.etx_phone);
+        etx_code=(Pinview) settingdialog.findViewById(R.id.etx_code);
+        goto_next =(TextView)settingdialog.findViewById(R.id.goto_next);
+        goto_confirm=(TextView) settingdialog.findViewById(R.id.goto_confirm);
+
+        etx_phone.setText(phonenumber);
+        etx_code.setVisibility(View.GONE);
+        goto_confirm.setVisibility(View.GONE);
+
+        goto_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        etx_phone.getText().toString(),        // Phone number to verify
+                        60,                 // Timeout duration
+                        TimeUnit.SECONDS,   // Unit of timeout
+                        BaseActivity.this,               // Activity (for callback binding)
+                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                            @Override
+                            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                                // This callback will be invoked in two situations:
+                                // 1 - Instant verification. In some cases the phone number can be instantly
+                                //     verified without needing to send or enter a verification code.
+                                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                                //     detect the incoming verification SMS and perform verification without
+                                //     user action.
+                                Log.d("phone", "onVerificationCompleted:" + credential);
+
+                               // signInWithPhoneAuthCredential(credential);
+                            }
+
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                    // Invalid request
+                                    // ...
+                                } else if (e instanceof FirebaseTooManyRequestsException) {
+                                    // The SMS quota for the project has been exceeded
+                                    // ...
+                                }
+                            }
+
+
+
+                            @Override
+                            public void onCodeSent(@NonNull String verificationId,
+                                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                                // The SMS verification code has been sent to the provided phone number, we
+                                // now need to ask the user to enter the code and then construct a credential
+                                // by combining the code with a verification ID.
+                                Log.d("phone", "onCodeSent:" + verificationId);
+
+                                // Save verification ID and resending token so we can use them later
+                               String  mVerificationId = verificationId;
+                                //mResendToken = token;
+
+
+                            }
+                        });        // OnVerificationStateChangedCallbacks
+                settingdialog.dismiss();
+            }
+        });
+
+        goto_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmedphonenumber(etx_phone.getText().toString());
+            }
+        });
+
+        settingdialog.show();
+    }
+
+    public void confirmedphonenumber(String toString) {
     }
 
 

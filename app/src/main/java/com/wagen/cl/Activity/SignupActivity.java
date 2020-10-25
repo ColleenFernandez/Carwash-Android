@@ -162,7 +162,7 @@ public class SignupActivity extends BaseActivity {
         return true;
     }
     public void callsignup(int signuptype){
-        Map<String, String> params = new HashMap<>();
+        /*Map<String, String> params = new HashMap<>();
         params.put("first_name", etx_firstname.getText().toString());
         params.put("last_name", etx_lastname.getText().toString());
         params.put("email", etx_email.getText().toString());
@@ -171,7 +171,7 @@ public class SignupActivity extends BaseActivity {
         params.put("photo", photourl);
         params.put("account_type", String.valueOf(signuptype));
         params.put("social_id", socialid);
-        call_postApi(Constants.BASE_URL, "registerUser", params);
+        call_postApi(Constants.BASE_URL, "registerUser", params);*/
     }
 
     public void gotologin(View view) {

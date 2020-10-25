@@ -13,6 +13,7 @@ public class UserModel {
     public String membership_last_renew = "-1";  // last renew date
     public int membership_id = -1;
     public int membership_count = 0;
+    public int phoneverify_status = 0; //0: not verify, 1: verify
 
 
 }

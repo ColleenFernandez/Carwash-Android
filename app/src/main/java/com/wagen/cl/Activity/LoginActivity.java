@@ -185,6 +185,7 @@ public class LoginActivity extends BaseActivity {
                 userModel.photo = user_info.getString("photo");
                 userModel.account_type = user_info.getInt("account_type");
                 userModel.social_id = user_info.getString("social_id");
+                userModel.phoneverify_status = user_info.getInt("phone_verifystatus");
 
                 userModel.membership_last_renew =user_info.getString("membership_last_renew");
                 userModel.membership_id = user_info.getInt("membership_id");

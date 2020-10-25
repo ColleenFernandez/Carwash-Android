@@ -80,6 +80,7 @@
                     android:text="Lavado Exterior Express"
                     android:textColor="@color/black"
                     android:textSize="18dp"
+                    android:id="@+id/txv_package"
                     android:gravity="center"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,12 +92,14 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="$10,000"
+                        android:id="@+id/txv_package_price"
                         android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="50Mins"
+                        android:id="@+id/txv_package_durationtime"
                         android:textColor="@color/black"/>
 
                 </LinearLayout>
@@ -104,13 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
-                    android:text="Lavdo Exprior 2 en 1"
-                    android:textColor="@color/gray_color"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:text="Lavdo Exprior 2 en 1"
+                    android:id="@+id/txv_package_descripton"
                     android:textColor="@color/gray_color"/>
             </LinearLayout>
             <LinearLayout
@@ -118,49 +115,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:background="@drawable/edittextback">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lavado Full"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:gravity="center"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="$10,000"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="50Mins"
-                        android:textColor="@color/black"/>
+                android:id="@+id/lyt_services"
+                android:layout_marginRight="30dp"  />
 
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:text="Lavdo Exprior 2 en 1"
-                    android:textColor="@color/gray_color"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:text="Lavdo Exprior 2 en 1"
-                    android:textColor="@color/gray_color"/>
-            </LinearLayout>
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
@@ -170,6 +127,7 @@
                 android:layout_marginTop="40dp"
                 android:numStars="5"
                 android:stepSize="0.5"
+                android:id="@+id/ratingbar"
                 />
             <EditText
                 android:layout_width="match_parent"
@@ -177,6 +135,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:hint="Write your review"
+                android:id="@+id/etx_review"
                 android:gravity="top|left"
                 android:padding="10dp"
                 android:background="@drawable/edittextback"/>
@@ -185,6 +144,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:id="@+id/txv_givereview"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:text="@string/givereview"

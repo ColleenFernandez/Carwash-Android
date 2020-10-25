@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:civ_border_width="1dp"
-                    android:src="@drawable/ic_avatar"
+                    android:background="@drawable/ic_avatar"
                     app:civ_border_color="#FF000000"/>
             </FrameLayout>
 
@@ -112,17 +112,32 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="15dp"
                 android:text="Celular"/>
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/edittextback"
-                android:singleLine="true"
-                android:padding="5dp"
-                android:id="@+id/etx_phone"
-                android:textColor="@color/black"
-                android:inputType="phone"
-                android:hint=""/>
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edittextback">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:text="+56"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:padding="5dp"
+                    android:id="@+id/etx_phone"
+                    android:textColor="@color/black"
+                    android:inputType="phone"
+                    android:hint=""/>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
