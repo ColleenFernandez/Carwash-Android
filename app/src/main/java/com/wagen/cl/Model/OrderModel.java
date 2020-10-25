@@ -15,7 +15,7 @@ public class OrderModel {
     public  int order_type = -1; // 0" at workshop , 1: at home
     public String city = "";
     public String address = "";
-    public Integer[] serviceselected_status = new Integer[]{0,0,0,0,0,0};
+    public Integer[] serviceselected_status = new Integer[]{0,0,0,0,0,0,0,0,0,0};
 
     public void setOrder_id(int order_id) {
         this.order_id = order_id;

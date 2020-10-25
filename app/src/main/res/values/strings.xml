@@ -36,6 +36,9 @@
     <string name="inputaddress">Input Address</string>
     <string name="next">Next</string>
     <string name="save">Save</string>
+    <string name="selectmethod">Select Payment Type</string>
+    <string name="bymembership">By Membership</string>
+    <string name="paynow">Pay Now</string>
 
     <string name="selectcar">Please select a car</string>
     <string name="selectpackage">Please select a Package</string>

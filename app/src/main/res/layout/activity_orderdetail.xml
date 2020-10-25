@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="José Alcalde Délano 10.581, Lo Barnechea."
                     android:layout_gravity="center"
+                    android:id="@+id/txv_address"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_color"
                     android:textSize="18dp"/>
@@ -96,6 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="10/21/2020"
+                    android:id="@+id/txv_appointdate"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_color"
                     android:textSize="18dp"/>
@@ -127,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="10:30 AM"
+                    android:id="@+id/txv_appointtime"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_color"
                     android:textSize="18dp"/>
@@ -158,6 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0H 50MINS"
+                    android:id="@+id/txv_duration"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_color"
                     android:textSize="18dp"/>
@@ -189,6 +193,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5000,00CLP"
+                    android:id="@+id/txv_price"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_color"
                     android:textSize="18dp"/>
