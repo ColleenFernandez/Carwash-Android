@@ -91,12 +91,14 @@ public class BookingAdapter extends BaseAdapter {
 
     public String changedateformattoappstyle(String date){ // from 2018-12-28 to 12/28/2018
         String[] datearray=date.split("-");
-        String newformate=datearray[1]+"/"+datearray[2]+"/"+datearray[0];
+        String newformate=datearray[2]+"/"+datearray[1]+"/"+datearray[0];
         return newformate;
     }
     public String chagnenumberformat(String number){
-        DecimalFormat f = new DecimalFormat("#,###");
-         return  f.format(Double.parseDouble(number));
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String yourFormattedString = formatter.format(Long.parseLong(String.valueOf(number)));
+        return  yourFormattedString.replaceAll(",",".");
     }
 
 

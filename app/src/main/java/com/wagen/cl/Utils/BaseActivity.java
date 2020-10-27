@@ -44,9 +44,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import com.goodiebag.pinview.Pinview;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -77,10 +80,21 @@ public class BaseActivity extends AppCompatActivity {
     String _photoPath = "", imageurl="";
     String pdffilename = "";
     DatePickerDialog datePickerDialog;
+    String  mVerificationId = "";
+
+    EditText etx_phone;
+    Pinview etx_code;
+    PhoneAuthCredential credential;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
+
 
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);
@@ -89,8 +103,6 @@ public class BaseActivity extends AppCompatActivity {
         progressBar.setCancelable(false);
         progressBar.setProgress(0);
 
-       /* FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.setLanguageCode("fr");*/
     }
 
     public void call_postApi(String baseurl, String method, Map<String, String> params){
@@ -371,6 +383,8 @@ public class BaseActivity extends AppCompatActivity {
 
 
 
+
+
     public String changedatefomattoserverstyle(String date){   // from 12/28/2018 to 2018-12-28
         String[] datearray=date.split("/");
         String newformate=datearray[2]+"-"+datearray[0]+"-"+datearray[1];
@@ -456,8 +470,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void firebasephoneverification(String phonenumber){
-        EditText etx_phone;
-        Pinview etx_code;
+
         TextView goto_next, goto_confirm;
 
         final Dialog settingdialog = new Dialog(BaseActivity.this);
@@ -520,7 +533,10 @@ public class BaseActivity extends AppCompatActivity {
                                 Log.d("phone", "onCodeSent:" + verificationId);
 
                                 // Save verification ID and resending token so we can use them later
-                               String  mVerificationId = verificationId;
+                                mVerificationId = verificationId;
+                                etx_code.setVisibility(View.VISIBLE);
+                                etx_phone.setEnabled(false);
+                                goto_confirm.setVisibility(View.VISIBLE);
                                 //mResendToken = token;
 
 
@@ -533,11 +549,44 @@ public class BaseActivity extends AppCompatActivity {
         goto_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmedphonenumber(etx_phone.getText().toString());
+                confirmedphonenumber1(etx_phone.getText().toString());
             }
         });
 
         settingdialog.show();
+    }
+
+    public void confirmedphonenumber1(String toString) {
+        if (etx_code.getValue().length() < 6 ) {
+            Toast.makeText(this, "Please enter correct code", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mVerificationId.length() == 0){
+            Toast.makeText(this, "Please use correct phone", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        credential = PhoneAuthProvider.getCredential(mVerificationId, etx_code.getValue());
+        progressBar.show();
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            //verification successful we will start the profile activity
+                            confirmedphonenumber(etx_phone.getText().toString());
+
+                        } else {
+                            progressBar.dismiss();
+                            //verification unsuccessful.. display an error message
+                            Toast.makeText(BaseActivity.this, "Wrong verify code", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
     public void confirmedphonenumber(String toString) {

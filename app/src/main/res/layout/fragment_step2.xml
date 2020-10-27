@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                     android:id="@+id/txv_option1"
                     android:textColor="@color/white"
                     android:layout_height="match_parent"
-                    android:background="@drawable/loginbuttonback"/>
+                    android:background="@drawable/loginbuttonback1"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -53,25 +54,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginRight="5dp"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:background="@drawable/edittextback">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lavodo Full"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray_color"
                         android:id="@+id/txv_title1"
-                        android:textSize="20dp"/>
+                        android:textSize="18dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_price1"
                             android:textSize="18dp"/>
                         <TextView
@@ -79,7 +82,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_time1"
                             android:textSize="18dp"/>
                     </LinearLayout>
@@ -119,8 +122,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="9"
-                    android:paddingLeft="5dp"
-
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginRight="5dp"
@@ -129,19 +131,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lavodo Full"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray_color"
                         android:id="@+id/txv_title2"
-                        android:textSize="20dp"/>
+                        android:textSize="18dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_price2"
                             android:textSize="18dp"/>
                         <TextView
@@ -149,7 +153,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_time2"
                             android:textSize="18dp"/>
                     </LinearLayout>
@@ -188,7 +192,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="9"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginRight="5dp"
@@ -197,19 +201,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lavodo Full"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray_color"
                         android:id="@+id/txv_title3"
-                        android:textSize="20dp"/>
+                        android:textSize="18dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_price3"
                             android:textSize="18dp"/>
                         <TextView
@@ -217,7 +223,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_time3"
                             android:textSize="18dp"/>
                     </LinearLayout>
@@ -257,26 +263,28 @@
                     android:layout_weight="9"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="5dp"
+                    android:padding="10dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/edittextback">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lavodo Full"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray_color"
                         android:id="@+id/txv_title4"
-                        android:textSize="20dp"/>
+                        android:textSize="18dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_price4"
                             android:textSize="18dp"/>
                         <TextView
@@ -284,7 +292,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="$2000"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_color"
                             android:id="@+id/txv_time4"
                             android:textSize="18dp"/>
                     </LinearLayout>
@@ -322,7 +330,7 @@
                 android:gravity="center"
                 android:background="@color/white"
                 android:orientation="horizontal">
-                <TextView
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="@string/next"
@@ -330,7 +338,8 @@
                     android:id="@+id/txv_next"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:background="@drawable/loginbuttonback"/>
+                    android:drawableTint="@color/gray2"
+                    android:background="@drawable/loginbuttonback1"/>
 
             </LinearLayout>
 

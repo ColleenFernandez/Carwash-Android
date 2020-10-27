@@ -7,45 +7,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/edittextback">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Descontaminado con ClayBar y quickdetailing"
-            android:textColor="@color/black"
+            android:textColor="@color/gray_color"
             android:id="@+id/txv_title1"
             android:textSize="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:id="@+id/lyt_1"
             >
-
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:id="@+id/txv_price1"
                 android:layout_height="wrap_content"
                 android:text="$5000"
                 android:textSize="18dp"
+                android:layout_marginRight="30dp"
                 android:textColor="@color/gray7"/>
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:id="@+id/txv_time1"
                 android:layout_height="wrap_content"
                 android:text="$5000"
                 android:textSize="18dp"
                 android:textColor="@color/gray7"/>
-            <TextView
+           <TextView
                 android:layout_width="0dp"
-                android:layout_weight=".5"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"              />
             <TextView
                 android:layout_width="0dp"
@@ -55,9 +52,64 @@
                 android:id="@+id/txv_select1"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:background="@drawable/homebuttonback"
+                android:background="@drawable/selectedbuttonback"
                 />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lyt_cu"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:id="@+id/txv_minus"
+                    android:background="@drawable/pluminu_button"
+                    android:textColor="@color/white"/>
+                <EditText
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:hint="0"
+                    android:id="@+id/etx_quantity"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:background="@drawable/edittextback1"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:gravity="center"
+                    android:id="@+id/txv_plus"
+                    android:textSize="20dp"
+                    android:background="@drawable/pluminu_button"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
         </LinearLayout>
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity"
+                android:textSize="18dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/gray7"/>
+
+
+        </LinearLayout>-->
     </LinearLayout>
+
 
 </LinearLayout>

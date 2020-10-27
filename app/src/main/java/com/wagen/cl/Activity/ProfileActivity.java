@@ -2,13 +2,19 @@ package com.wagen.cl.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -86,15 +92,15 @@ public class ProfileActivity extends BaseActivity {
     public void callupdateprofile(View view) {
         if(etx_phone.getText().toString().length()==0){
             Toast.makeText(this, getString(R.string.enterphone), Toast.LENGTH_SHORT).show();
-        }else if(Constants.userModel.phoneverify_status == 0 || !Constants.userModel.phonenumber.equals(etx_phone.getText().toString())){
-           // firebasephoneverification(etx_phone.getText().toString());
-        }else{
+        }/*else if(Constants.userModel.phoneverify_status == 0 || !Constants.userModel.phonenumber.equals(etx_phone.getText().toString())){
+            firebasephoneverification(etx_phone.getText().toString());
+        }*/else{
             updateprofile(etx_phone.getText().toString());
         }
     }
 
     public void updateprofile(String phonenumber){
-       /* Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("first_name", etx_firstname.getText().toString());
         params.put("last_name", etx_lastname.getText().toString());
         params.put("email", etx_email.getText().toString());
@@ -103,7 +109,7 @@ public class ProfileActivity extends BaseActivity {
         params.put("photo", newphotourl);
         params.put("phone_verifystatus", "1");
         params.put("user_id", String.valueOf(Constants.userModel.user_id));
-        call_postApi(Constants.BASE_URL, "updateprofile", params);*/
+        call_postApi(Constants.BASE_URL, "updateprofile", params);
     }
 
     public void confirmedphonenumber(String toString) {
@@ -114,16 +120,17 @@ public class ProfileActivity extends BaseActivity {
         try {
             String result_code = response.getString("message");
             if (result_code.equals("success")) {
-                Toast.makeText(ProfileActivity.this, "Success", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ProfileActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 Constants.userModel.photo = newphotourl;
                 Constants.userModel.first_name = etx_firstname.getText().toString();
                 Constants.userModel.last_name = etx_lastname.getText().toString();
                 Constants.userModel.phonenumber = etx_phone.getText().toString();
                 Constants.userModel.phoneverify_status = 1;
 
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                /*Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+                showmessage(getString(R.string.profilechagned));
             }else {
                 Toast.makeText(ProfileActivity.this, result_code, Toast.LENGTH_SHORT).show();
             }
@@ -131,5 +138,33 @@ public class ProfileActivity extends BaseActivity {
             e.printStackTrace();
             Toast.makeText(ProfileActivity.this, getString(R.string.somethingwentwrong), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void showmessage(String message){
+        Dialog settingdialog = new Dialog(ProfileActivity.this);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.message_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        TextView txv_title =(TextView)settingdialog.findViewById(R.id.txv_title);
+        txv_title.setText(message);
+        settingdialog.show();
+        ImageView imv_close =(ImageView)settingdialog.findViewById(R.id.imv_close);
+        imv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        settingdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

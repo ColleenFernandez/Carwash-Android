@@ -33,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +54,7 @@ public class Step4Fragment extends Fragment {
     SegmentedControl segmented_control;
     String selecteddate = "";
     String selecetedtime = "";
+    String currentdate = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,9 +69,11 @@ public class Step4Fragment extends Fragment {
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             selecteddate = df.format(c);
+            currentdate = selecteddate;
             getallavailabletime(selecteddate);
         }else{
-            getallavailabletime(Constants.orderModel.order_time);
+            selecteddate = Constants.orderModel.order_date;
+            getallavailabletime(Constants.orderModel.order_date);
         }
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -77,7 +81,27 @@ public class Step4Fragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 selecteddate = String.valueOf(year)+"-"+String.valueOf(month+1)+"-"+String.valueOf(dayOfMonth);
                 Log.d("selecteddate==", selecteddate);
-                getallavailabletime(selecteddate);
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    long parsedMillis = sdf.parse(selecteddate).getTime();
+                    //long now = System.currentTimeMillis(); // 22:54:15
+                    long now = sdf.parse(currentdate).getTime();// 22:54:15
+
+                    if (parsedMillis >= now) {
+                        Log.d("TAG", "In the future!");
+                        getallavailabletime(selecteddate);
+
+                    } else {
+                        Log.d("TAG", "In the past...");
+                        Toast.makeText(order1Activity, getString(R.string.cannotselectolddate), Toast.LENGTH_SHORT).show();
+                        segmented_control.removeAllSegments();
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

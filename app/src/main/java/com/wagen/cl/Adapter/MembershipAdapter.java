@@ -18,6 +18,7 @@ import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MembershipAdapter extends BaseAdapter {
@@ -89,9 +90,9 @@ public class MembershipAdapter extends BaseAdapter {
         }
 
         holder.txvtitle.setText(trip1.title);
-        holder.txvprice.setText(trip1.price);
+        holder.txvprice.setText("$"+chagnenumberformat(trip1.price));
         holder.txvavailabelcount.setText(" "+trip1.remaining_order);
-        holder.txvpurchasedate.setText(" "+trip1.renew_date);
+        holder.txvpurchasedate.setText(" "+changedateformattoappstyle(trip1.renew_date));
 
         holder.txvpurchasenow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +113,15 @@ public class MembershipAdapter extends BaseAdapter {
 
     public String changedateformattoappstyle(String date){ // from 2018-12-28 to 12/28/2018
         String[] datearray=date.split("-");
-        String newformate=datearray[1]+"/"+datearray[2]+"/"+datearray[0];
+        String newformate=datearray[2]+"/"+datearray[1]+"/"+datearray[0];
         return newformate;
+    }
+
+    public String chagnenumberformat(String number){
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String yourFormattedString = formatter.format(Long.parseLong(String.valueOf(number)));
+        return  yourFormattedString.replaceAll(",",".");
     }
 
 

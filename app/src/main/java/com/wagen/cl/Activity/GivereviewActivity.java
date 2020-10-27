@@ -2,10 +2,14 @@ package com.wagen.cl.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -95,8 +99,9 @@ public class GivereviewActivity extends BaseActivity {
             if (result_code.equals("success")) {
                 // Toast.makeText(MybookingActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 if(method.equals("giveorderreivew")){
-                    Toast.makeText(this, getString(R.string.sentreview), Toast.LENGTH_SHORT).show();
-                    backtomain();
+
+                    showmessage(getString(R.string.sentreview));
+                    //backtomain();
                 }else{
                     JSONArray orders = response.getJSONArray("orders");
                     orderModels = new ArrayList<>();
@@ -126,6 +131,7 @@ public class GivereviewActivity extends BaseActivity {
                             service.service_name = oneselection.getString("service_name");
                             service.service_time = oneselection.getString("service_time");
                             service.service_price = oneselection.getString("service_price");
+                            service.cu_status = oneselection.getInt("cu_status");
                             services.add(service);
                         }
                         orderModel.services = services;
@@ -193,5 +199,33 @@ public class GivereviewActivity extends BaseActivity {
     public String chagnenumberformat(String number){
         DecimalFormat f = new DecimalFormat("#,###");
         return  f.format(Double.parseDouble(number));
+    }
+
+    public void showmessage(String message){
+        Dialog settingdialog = new Dialog(GivereviewActivity.this);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.message_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        TextView txv_title =(TextView)settingdialog.findViewById(R.id.txv_title);
+        ImageView imv_close =(ImageView)settingdialog.findViewById(R.id.imv_close);
+        imv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GivereviewActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        txv_title.setText(message);
+        settingdialog.show();
+        settingdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent intent = new Intent(GivereviewActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

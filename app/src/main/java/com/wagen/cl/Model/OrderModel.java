@@ -15,7 +15,8 @@ public class OrderModel {
     public  int order_type = -1; // 0" at workshop , 1: at home
     public String city = "";
     public String address = "";
-    public Integer[] serviceselected_status = new Integer[]{0,0,0,0,0,0,0,0,0,0};
+   // public Integer[] serviceselected_status = new Integer[]{0,0,0,0,0,0,0,0,0,0};
+
     public float order_rating = -1;
     public String order_comment = "";
     public ArrayList<Service> services = new ArrayList<>();

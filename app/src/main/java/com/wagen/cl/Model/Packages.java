@@ -7,4 +7,5 @@ public class Packages {
     public String package_description = "";
     public int package_available_for_home = 0;
     public String package_price = "";
+    public String package_price_home = "";
 }

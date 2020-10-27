@@ -231,6 +231,7 @@ public class SignupActivity extends BaseActivity {
                     packages2.package_description = onepackage.getString("package_description");
                     packages2.package_available_for_home = onepackage.getInt("package_available_for_home");
                     packages2.package_price = onepackage.getString("package_price");
+                    packages2.package_price_home = onepackage.getString("package_price_home");
                     packages1.add(packages2);
                 }
                 Preference.getInstance().putSharedpackagesPreference(SignupActivity.this, PrefConst.PREFKEY_PACKAGES, packages1);
@@ -245,6 +246,7 @@ public class SignupActivity extends BaseActivity {
                     oneserviceModel.service_description = oneservice.getString("service_description");
                     oneserviceModel.service_time = oneservice.getString("service_time");
                     oneserviceModel.service_price = oneservice.getString("service_price");
+                    oneserviceModel.cu_status = oneservice.getInt("cu_status");
                     services1.add(oneserviceModel);
                 }
                 Preference.getInstance().putSharedservicePreference(SignupActivity.this, PrefConst.PREFKEY_SERVICES, services1);

@@ -42,7 +42,7 @@
             />
 
     </FrameLayout>
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:text="@string/purchasemembership"
@@ -53,7 +53,8 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:onClick="gotopurchase"
-        android:background="@drawable/loginbuttonback"/>
+        android:drawableTint="@color/gray2"
+        android:background="@drawable/loginbuttonback1"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

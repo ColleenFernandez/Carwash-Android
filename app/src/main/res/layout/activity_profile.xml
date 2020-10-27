@@ -139,7 +139,7 @@
             </LinearLayout>
 
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="Save"
@@ -148,8 +148,9 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
+                android:drawableTint="@color/gray2"
                 android:onClick="callupdateprofile"
-                android:background="@drawable/loginbuttonback"/>
+                android:background="@drawable/loginbuttonback1"/>
 
         </LinearLayout>
     </ScrollView>

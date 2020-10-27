@@ -9,10 +9,12 @@
     tools:context=".Activity.LoginActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:src="@drawable/logo_splash"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:layout_gravity="center"/>
 
     <LinearLayout
@@ -92,15 +94,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="INGRESAR"
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="@color/white"
+            android:drawableTint="@color/gray2"
             android:onClick="callloginapi"
-            android:background="@drawable/loginbuttonback"/>
+            android:background="@drawable/loginbuttonback1"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"

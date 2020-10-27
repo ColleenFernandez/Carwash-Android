@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edittextback">
         <TextView
             android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:textColor="@color/gray_color"/>
             </LinearLayout>
         </LinearLayout>
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
@@ -97,7 +97,8 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="@color/white"
-            android:background="@drawable/loginbuttonback"/>
+            android:drawableTint="@color/gray_color"
+            android:background="@drawable/loginbuttonback1"/>
 
     </LinearLayout>
 

@@ -3,13 +3,16 @@ package com.wagen.cl.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
 import com.wagen.cl.Model.MembershipModel;
+import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Service;
 import com.wagen.cl.Model.UserModel;
@@ -31,8 +35,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class OrderdetailActivity extends BaseActivity {
@@ -54,10 +60,26 @@ public class OrderdetailActivity extends BaseActivity {
         }else{
             txv_address.setText(Constants.orderModel.address+", "+Constants.orderModel.city);
         }
-        txv_appointdate.setText(Constants.orderModel.order_date);
+        txv_appointdate.setText(setdateformat(Constants.orderModel.order_date));
         txv_appointtime.setText(Constants.orderModel.order_time);
-        txv_duration.setText(getdurationtime()+"MINS");
-        txv_price.setText(gettotalprice()+"CLP");
+        txv_duration.setText(getformatedduration()+"MINS");
+        txv_price.setText(getformatedtotalprice()+"CLP");
+    }
+
+    public String setdateformat(String date){
+        Log.d("date==", date);
+        String newdate = "";
+        if(date.length()>0){
+            newdate = date.split("-")[2]+"/"+date.split("-")[1]+"/"+date.split("-")[0];
+        }
+        return newdate;
+    }
+
+    public String getformatedduration(){
+        String totaldurationtime = getdurationtime();
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String yourFormattedString = formatter.format(Long.parseLong(totaldurationtime));
+        return  yourFormattedString.replaceAll(",",".");
     }
 
     public String getdurationtime() {
@@ -70,12 +92,19 @@ public class OrderdetailActivity extends BaseActivity {
             }
         }
 
-        for(int i = 0; i<services.size(); i++){
-            if(Constants.orderModel.serviceselected_status[i] == 1){
-                totaldurationtime+= Integer.parseInt(services.get(i).service_time);
-            }
+        Log.d("servicesize==", String.valueOf(Constants.orderModel.services.size()));
+        for(int i = 0; i<Constants.orderModel.services.size(); i++){
+            totaldurationtime+= Integer.parseInt(Constants.orderModel.services.get(i).service_time) *Constants.orderModel.services.get(i).number_of_order ;
+
         }
         return String.valueOf(totaldurationtime);
+    }
+
+    public String getformatedtotalprice(){
+        String totalprice = gettotalprice();
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String yourFormattedString = formatter.format(Long.parseLong(totalprice));
+        return  yourFormattedString.replaceAll(",",".");
     }
 
     public String gettotalprice() {
@@ -88,24 +117,23 @@ public class OrderdetailActivity extends BaseActivity {
             }
         }
 
-        for(int i = 0; i<services.size(); i++){
-            if(Constants.orderModel.serviceselected_status[i] == 1){
-                totalprice+= Integer.parseInt(services.get(i).service_price);
-            }
+        for(int i = 0; i<Constants.orderModel.services.size(); i++){
+            int oneitemprice = Constants.orderModel.services.get(i).number_of_order* Integer.parseInt(Constants.orderModel.services.get(i).service_price);
+            totalprice+= oneitemprice;
         }
-        return new DecimalFormat("####0.00").format(totalprice);
+       return String.valueOf(totalprice);
     }
 
 
     public void placeorder(View view) {
-       Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        //showmessage(getString(R.string.thanksfororder));
+
        /*if(Constants.userModel.phoneverify_status == 0){
            confirmedphonenumber(Constants.userModel.phonenumber);
        }else{
          selectpaymentmethoddialog();
        }*/
+        selectpaymentmethoddialog();
     }
     public void confirmedphonenumber(String toString) {
         phonenumber = toString;
@@ -161,15 +189,20 @@ public class OrderdetailActivity extends BaseActivity {
         settingdialog.show();
     }
 
-    public String getserviceids(){
+    public String[] getserviceids(){
         String serviceid = "";
-        for(int i=0; i<Constants.orderModel.serviceselected_status.length; i++){
-            if(Constants.orderModel.serviceselected_status[i]==1){
-                if(serviceid.length()==0) serviceid= String.valueOf(i+1);
-                else serviceid+=","+ String.valueOf(i+1);
+        String numberoforders = "";
+        for(int i=0; i<Constants.orderModel.services.size(); i++){
+            if(serviceid.length()==0) {
+                serviceid= String.valueOf(Constants.orderModel.services.get(i).service_id);
+                numberoforders = String.valueOf(Constants.orderModel.services.get(i).number_of_order);
+            }
+            else {
+                serviceid+=","+ String.valueOf(Constants.orderModel.services.get(i).service_id);
+                numberoforders += ","+String.valueOf(Constants.orderModel.services.get(i).number_of_order);
             }
         }
-        return serviceid;
+        return new String[]{serviceid, numberoforders};
     }
 
 
@@ -182,7 +215,8 @@ public class OrderdetailActivity extends BaseActivity {
         params.put("total_price", gettotalprice());
         params.put("car_id", String.valueOf(Constants.orderModel.car_id));
         params.put("package_id", String.valueOf(Constants.orderModel.package_id));
-        params.put("service_ids", getserviceids());
+        params.put("service_ids", getserviceids()[0]);
+        params.put("service_qty", getserviceids()[1]);
 
         params.put("order_type", String.valueOf(Constants.orderModel.order_type));  // home or worshop
         if(Constants.orderModel.order_type == 0){
@@ -205,10 +239,11 @@ public class OrderdetailActivity extends BaseActivity {
                     Constants.userModel.phoneverify_status = 1;
                     selectpaymentmethoddialog();
                 }else{
-                    Toast.makeText(OrderdetailActivity.this, "Successfully ordered", Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(OrderdetailActivity.this, "Successfully ordered", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
                     startActivity(intent);
-                    finish();
+                    finish();*/
+                    showmessage(getString(R.string.thanksfororder));
                 }
             }else {
                 Toast.makeText(OrderdetailActivity.this, result_code, Toast.LENGTH_SHORT).show();
@@ -217,5 +252,33 @@ public class OrderdetailActivity extends BaseActivity {
             e.printStackTrace();
             Toast.makeText(OrderdetailActivity.this, getString(R.string.somethingwentwrong), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void showmessage(String message){
+        Dialog settingdialog = new Dialog(OrderdetailActivity.this);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.message_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        TextView txv_title =(TextView)settingdialog.findViewById(R.id.txv_title);
+        ImageView imv_close =(ImageView)settingdialog.findViewById(R.id.imv_close);
+        imv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        txv_title.setText(message);
+        settingdialog.show();
+        settingdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

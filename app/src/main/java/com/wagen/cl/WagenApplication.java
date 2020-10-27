@@ -14,6 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.wagen.cl.Utils.LruBitmapCache;
 
 
@@ -41,6 +43,10 @@ public class WagenApplication extends Application {
         //  JodaTimeAndroid.init(this);
         instantiateVolleyQueue();
         getUserInfo();
+
+       // FirebaseApp.initializeApp(this);
+       /* FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.setLanguageCode("fr");*/
     }
     public void instantiateVolleyQueue() {
 

@@ -173,7 +173,7 @@ public class LoginActivity extends BaseActivity {
         try {
             String result_code = response.getString("message");
             if (result_code.equals("success")) {
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 UserModel userModel = new UserModel();
                 JSONObject user_info = response.getJSONObject("user_info");
                 userModel.user_id = user_info.getInt("user_id");
@@ -246,6 +246,7 @@ public class LoginActivity extends BaseActivity {
                     packages2.package_description = onepackage.getString("package_description");
                     packages2.package_available_for_home = onepackage.getInt("package_available_for_home");
                     packages2.package_price = onepackage.getString("package_price");
+                    packages2.package_price_home = onepackage.getString("package_price_home");
                     packages1.add(packages2);
                 }
                 Preference.getInstance().putSharedpackagesPreference(LoginActivity.this, PrefConst.PREFKEY_PACKAGES, packages1);
@@ -260,6 +261,7 @@ public class LoginActivity extends BaseActivity {
                     oneserviceModel.service_description = oneservice.getString("service_description");
                     oneserviceModel.service_time = oneservice.getString("service_time");
                     oneserviceModel.service_price = oneservice.getString("service_price");
+                    oneserviceModel.cu_status = oneservice.getInt("cu_status");
                     services1.add(oneserviceModel);
                 }
                 Preference.getInstance().putSharedservicePreference(LoginActivity.this, PrefConst.PREFKEY_SERVICES, services1);

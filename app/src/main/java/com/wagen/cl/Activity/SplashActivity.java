@@ -15,7 +15,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // FirebaseApp.initializeApp(this);
+
         setContentView(R.layout.activity_splash);
 
         new CountDownTimer(2000, 1000) {

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "910163104621",
+    "firebase_url": "https://wagen-293714.firebaseio.com",
+    "project_id": "wagen-293714",
+    "storage_bucket": "wagen-293714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910163104621:android:842ced3af25d2ed1d7c064",
+        "android_client_info": {
+          "package_name": "com.wagen.cl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910163104621-sf7o03t3mse1dd1j402qag56von5l5it.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wagen.cl",
+            "certificate_hash": "da17d4a8a5a8bef9cc3912f7fbdde711d9f5774d"
+          }
+        },
+        {
+          "client_id": "910163104621-jo00l2rc7ckohrkktc4omb4qilt2fk8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG9L4AkzwinwGHU9jqN8LRo8zHZqnBKyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910163104621-jo00l2rc7ckohrkktc4omb4qilt2fk8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

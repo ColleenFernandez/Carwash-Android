@@ -175,7 +175,7 @@ public class Step2Fragment extends Fragment {
             txv_option1.setTextColor(getResources().getColor(R.color.black));
             txv_option1.setBackgroundResource(R.drawable.segment_bg);
             txv_option2.setTextColor(getResources().getColor(R.color.white));
-            txv_option2.setBackgroundResource(R.drawable.loginbuttonback);
+            txv_option2.setBackgroundResource(R.drawable.loginbuttonback1);
             firstitem.setVisibility(View.GONE);
             previtem = 1;
             refreshbuttons(-1);
@@ -187,7 +187,7 @@ public class Step2Fragment extends Fragment {
             txv_option2.setTextColor(getResources().getColor(R.color.black));
             txv_option2.setBackgroundResource(R.drawable.segment_bg);
             txv_option1.setTextColor(getResources().getColor(R.color.white));
-            txv_option1.setBackgroundResource(R.drawable.loginbuttonback);
+            txv_option1.setBackgroundResource(R.drawable.loginbuttonback1);
             firstitem.setVisibility(View.VISIBLE);
             previtem = 0;
             packageposition = -1;
@@ -207,6 +207,17 @@ public class Step2Fragment extends Fragment {
 
     public void refreshbuttons(int position){
         packageposition = position;
+        if(previtem == 0){
+            txv_price1.setText("$"+numberformating(packages.get(0).package_price));
+            txv_price2.setText("$"+numberformating(packages.get(1).package_price));
+            txv_price3.setText("$"+numberformating(packages.get(2).package_price));
+            txv_price4.setText("$"+numberformating(packages.get(3).package_price));
+        }else{
+            txv_price1.setText("$"+numberformating(packages.get(0).package_price_home));
+            txv_price2.setText("$"+numberformating(packages.get(1).package_price_home));
+            txv_price3.setText("$"+numberformating(packages.get(2).package_price_home));
+            txv_price4.setText("$"+numberformating(packages.get(3).package_price_home));
+        }
 
         if(position == 0){
             lyt_1.setBackgroundResource(R.drawable.package_select);
