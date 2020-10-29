@@ -31,187 +31,225 @@
             android:textSize="22dp"
             android:layout_gravity="center"/>
     </FrameLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/ic_location"
-                android:layout_marginRight="10dp"
-                app:tint="@color/gray_color" />
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:paddingTop="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!--<TextView
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_location"
+                    android:layout_marginRight="10dp"
+                    app:tint="@color/gray_color" />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/yourappointmentdate"
-                    android:textColor="@color/gray_color"
-                    android:textSize="20dp"/>-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="José Alcalde Délano 10.581, Lo Barnechea."
-                    android:layout_gravity="center"
-                    android:id="@+id/txv_address"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_color"
-                    android:textSize="18dp"/>
+                    android:orientation="vertical">
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yourappointmentdate"
+                        android:textColor="@color/gray_color"
+                        android:textSize="20dp"/>-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="José Alcalde Délano 10.581, Lo Barnechea."
+                        android:layout_gravity="center"
+                        android:id="@+id/txv_address"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_color"
+                        android:textSize="18dp"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/summary_1"
-                android:layout_marginRight="10dp"
-                app:tint="@color/gray_color" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/summary_1"
+                    android:layout_marginRight="10dp"
+                    app:tint="@color/gray_color" />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/yourappointmentdate"
-                    android:textColor="@color/gray_color"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10/21/2020"
-                    android:id="@+id/txv_appointdate"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_color"
-                    android:textSize="18dp"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yourappointmentdate"
+                        android:textColor="@color/gray_color"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10/21/2020"
+                        android:id="@+id/txv_appointdate"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_color"
+                        android:textSize="18dp"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/summary_2"
-                android:layout_marginRight="10dp"
-                app:tint="@color/gray_color" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/summary_2"
+                    android:layout_marginRight="10dp"
+                    app:tint="@color/gray_color" />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/yourappointmenttime"
-                    android:textColor="@color/gray_color"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10:30 AM"
-                    android:id="@+id/txv_appointtime"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_color"
-                    android:textSize="18dp"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yourappointmenttime"
+                        android:textColor="@color/gray_color"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10:30 AM"
+                        android:id="@+id/txv_appointtime"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_color"
+                        android:textSize="18dp"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/summary_3"
-                android:layout_marginRight="10dp"
-                app:tint="@color/gray_color" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/summary_3"
+                    android:layout_marginRight="10dp"
+                    app:tint="@color/gray_color" />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/duration"
-                    android:textColor="@color/gray_color"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0H 50MINS"
-                    android:id="@+id/txv_duration"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_color"
-                    android:textSize="18dp"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration"
+                        android:textColor="@color/gray_color"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0H 50MINS"
+                        android:id="@+id/txv_duration"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_color"
+                        android:textSize="18dp"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/summary_4"
-                android:layout_marginRight="10dp"
-                app:tint="@color/gray_color" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/summary_4"
+                    android:layout_marginRight="10dp"
+                    app:tint="@color/gray_color" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/totalprice"
+                        android:textColor="@color/gray_color"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5000,00CLP"
+                        android:id="@+id/txv_price"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_color"
+                        android:textSize="18dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lyt_coupon"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/totalprice"
-                    android:textColor="@color/gray_color"
-                    android:textSize="20dp"/>
-                <TextView
+                    android:text="Do you have coupon code?"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimary"/>
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5000,00CLP"
-                    android:id="@+id/txv_price"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_color"
-                    android:textSize="18dp"/>
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorPrimary"/>
             </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:id="@+id/etx_coupon"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:hint="Please enter coupon code"
+                android:textColorHint="@color/gray_color"
+                android:textColor="@color/gray_color"
+                android:background="@drawable/edittextback1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/save"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:onClick="placeorder"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:drawableTint="@color/gray2"
+                android:background="@drawable/loginbuttonback1"/>
         </LinearLayout>
-    </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/save"
-        android:gravity="center"
-        android:layout_marginBottom="40dp"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:onClick="placeorder"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:drawableTint="@color/gray2"
-        android:background="@drawable/loginbuttonback1"/>
+    </ScrollView>
+
+
 
 </LinearLayout>

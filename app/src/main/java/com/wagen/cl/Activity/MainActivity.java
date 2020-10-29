@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
         Constants.orderModel = new OrderModel();
         viewPager=(ViewPager)findViewById(R.id.viewpager);
         indicator_line =(ViewPagerIndicator)findViewById(R.id.indicator_line);
+        Constants.frompagestatus_fororderlist = 0;
 
         for(int i = 0; i<3; i++){
             Promotionmodel promotionmodel = new Promotionmodel();
@@ -90,6 +91,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotomybooking(View view) {
+        Constants.frompagestatus_fororderlist = 0;
         Intent intent = new Intent(this, MybookingActivity.class);
         startActivity(intent);
         finish();
@@ -108,15 +110,20 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotoreview(View view) {
-        Intent intent = new Intent(this, GivereviewActivity.class);
+        Constants.frompagestatus_fororderlist = 1;
+        Intent intent = new Intent(this, MybookingActivity.class);
         startActivity(intent);
         finish();
+
     }
 
     public void gotopurchase(View view) {
         Intent intent = new Intent(this, MembershipActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void gotodetail(View view) {
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

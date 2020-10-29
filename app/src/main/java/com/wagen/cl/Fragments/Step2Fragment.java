@@ -25,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.wagen.cl.Activity.Order1Activity;
 import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
@@ -46,10 +48,11 @@ public class Step2Fragment extends Fragment {
     TextView txv_des1, txv_des2, txv_des3, txv_des4;
     LinearLayout lyt_1,lyt_2,lyt_3,lyt_4;
     TextView txv_1,txv_2,txv_3,txv_4;
-    LinearLayout firstitem;
+
     ArrayList<Packages> packages = new ArrayList<>();
     TextView txv_option1, txv_option2;
     int previtem = 0, packageposition = -1;
+    LinearLayout lyt_firstitem, lyt_seconditem, lyt_thirditem, lyt_fourthitem;
 
 
 
@@ -59,7 +62,12 @@ public class Step2Fragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_step2, container, false);
         packages = Preference.getInstance().getSharedpackagesmodelPreference(order1Activity, PrefConst.PREFKEY_PACKAGES);
-        firstitem=(LinearLayout)view.findViewById(R.id.lyt_firstitem);
+
+        lyt_firstitem=(LinearLayout)view.findViewById(R.id.lyt_firstitem);
+        lyt_seconditem=(LinearLayout)view.findViewById(R.id.lyt_seconditem);
+        lyt_thirditem=(LinearLayout)view.findViewById(R.id.lyt_thirditem);
+        lyt_fourthitem=(LinearLayout)view.findViewById(R.id.lyt_fourthitem);
+
         lyt_1=(LinearLayout)view.findViewById(R.id.lyt_1);
         lyt_2=(LinearLayout)view.findViewById(R.id.lyt_2);
         lyt_3=(LinearLayout)view.findViewById(R.id.lyt_3);
@@ -108,26 +116,26 @@ public class Step2Fragment extends Fragment {
         txv_time4.setText(packages.get(3).package_time+"Mins");
         txv_des4.setText(packages.get(3).package_description.replaceAll("_","\n"));
 
-        lyt_1.setOnClickListener(new View.OnClickListener() {
+        lyt_firstitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshbuttons(0);
             }
         });
-        lyt_2.setOnClickListener(new View.OnClickListener() {
+        lyt_seconditem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshbuttons(1);
             }
         });
-        lyt_3.setOnClickListener(new View.OnClickListener() {
+        lyt_thirditem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshbuttons(2);
             }
         });
 
-        lyt_4.setOnClickListener(new View.OnClickListener() {
+        lyt_fourthitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshbuttons(3);
@@ -176,7 +184,7 @@ public class Step2Fragment extends Fragment {
             txv_option1.setBackgroundResource(R.drawable.segment_bg);
             txv_option2.setTextColor(getResources().getColor(R.color.white));
             txv_option2.setBackgroundResource(R.drawable.loginbuttonback1);
-            firstitem.setVisibility(View.GONE);
+            lyt_firstitem.setVisibility(View.GONE);
             previtem = 1;
             refreshbuttons(-1);
         }
@@ -188,7 +196,7 @@ public class Step2Fragment extends Fragment {
             txv_option2.setBackgroundResource(R.drawable.segment_bg);
             txv_option1.setTextColor(getResources().getColor(R.color.white));
             txv_option1.setBackgroundResource(R.drawable.loginbuttonback1);
-            firstitem.setVisibility(View.VISIBLE);
+            lyt_firstitem.setVisibility(View.VISIBLE);
             previtem = 0;
             packageposition = -1;
             refreshbuttons(-1);
@@ -199,8 +207,12 @@ public class Step2Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("carid==", String.valueOf(Constants.orderModel.car_id));
-        if(Constants.orderModel.order_type == 0) selected_option1();
+        previtem = -1;
+        if(Constants.orderModel.order_type == 0) {
+            selected_option1();
+        }
         else if(Constants.orderModel.order_type == 1) selected_option2();
+        else previtem = 0;
 
         refreshbuttons(Constants.orderModel.package_id-1);
     }
@@ -289,9 +301,10 @@ public class Step2Fragment extends Fragment {
     public void selectcitydialog(String shopaddress, ArrayList<String> cities){
         LinearLayout lyt_address;
         TextView txvtitle, txvshopaddress, txvnext;
-        Spinner cityspinner;
+        MaterialSpinner spinner;
+
         EditText etx_address;
-        final Dialog settingdialog = new Dialog(order1Activity);
+        Dialog settingdialog = new Dialog(order1Activity);
         settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         settingdialog.setContentView(R.layout.selectcity_dialog);
         settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -300,8 +313,11 @@ public class Step2Fragment extends Fragment {
         txvtitle=(TextView) settingdialog.findViewById(R.id.txv_title);
         txvshopaddress=(TextView) settingdialog.findViewById(R.id.txv_shopaddress);
         txvnext =(TextView)settingdialog.findViewById(R.id.goto_next);
-        cityspinner=(Spinner)settingdialog.findViewById(R.id.city_spinner);
+        spinner = (MaterialSpinner) settingdialog.findViewById(R.id.spinner);
         etx_address=(EditText)settingdialog.findViewById(R.id.etx_address);
+
+
+
         if(Constants.orderModel.order_type == 0){
             txvtitle.setText(getResources().getString(R.string.shopaddressis));
             lyt_address.setVisibility(View.GONE);
@@ -311,13 +327,18 @@ public class Step2Fragment extends Fragment {
             lyt_address.setVisibility(View.VISIBLE);
             txvshopaddress.setVisibility(View.GONE);
             txvtitle.setText(getResources().getString(R.string.inputaddress));
-            ArrayAdapter aa = new ArrayAdapter(order1Activity ,android.R.layout.simple_spinner_item,cities);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            //Setting the ArrayAdapter data on the Spinner
-            cityspinner.setAdapter(aa);
+
+
+            spinner.setItems(cities);
+            spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+                @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+
+                }
+            });
 
             if(Constants.orderModel.city.length()>0){
-                cityspinner.setSelection(selectedcitypostion(cities));
+                spinner.setSelectedIndex(selectedcitypostion(cities));
                 etx_address.setText(Constants.orderModel.address);
             }
         }
@@ -330,7 +351,7 @@ public class Step2Fragment extends Fragment {
                     return;
                 }
                 if(Constants.orderModel.order_type == 1){
-                    Constants.orderModel.city =cities.get(cityspinner.getSelectedItemPosition());
+                    Constants.orderModel.city =cities.get(spinner.getSelectedIndex());
                     Constants.orderModel.address = etx_address.getText().toString();
                 }
                 settingdialog.dismiss();

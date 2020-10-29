@@ -13,7 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wagen.cl.Activity.GivereviewActivity;
 import com.wagen.cl.Activity.MybookingActivity;
+import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.R;
 
@@ -79,6 +81,18 @@ public class BookingAdapter extends BaseAdapter {
         holder.txvdate.setText(changedateformattoappstyle(trip1.order_date));
         holder.txvprice.setText(" : "+chagnenumberformat(trip1.total_price)+" CLP");
         holder.txvduration.setText(" : "+trip1.duration_time+"MINS");
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Constants.frompagestatus_fororderlist == 1){
+                    Constants.orderModel = trip1;
+                    Intent intent = new Intent(_context, GivereviewActivity.class);
+                        _context.startActivity(intent);
+                       // finish();
+                }
+            }
+        });
 
         return convertView;
     }

@@ -118,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:id="@+id/lyt_seconditem"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="0dp"
@@ -188,6 +189,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:id="@+id/lyt_thirditem"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="0dp"
@@ -257,6 +259,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:id="@+id/lyt_fourthitem"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="0dp"

@@ -32,6 +32,7 @@
     <string name="selectatime">Please select a time</string>
     <string name="sentreview">Thanks for your review, it help us to improve every day!</string>
     <string name="back">Back</string>
+    <string name="pendingrevieworders">Pending Review Orders</string>
     <string name="givereview">Give Review</string>
     <string name="membership">MemberShip</string>
     <string name="purchasenow">Purchase Now</string>
@@ -39,6 +40,7 @@
     <string name="inputphonenumber">Enter Phone Number</string>
     <string name="next">Next</string>
     <string name="save">Save</string>
+    <string name="placeorder">place order</string>
     <string name="quantity">Quantity</string>
     <string name="selectmethod">Select Payment Type</string>
     <string name="bymembership">By Membership</string>

@@ -63,13 +63,13 @@ public class Step4Fragment extends Fragment {
         calendarView=(CalendarView)view.findViewById(R.id.calendar);
         segmented_control =(SegmentedControl)view.findViewById(R.id.segmented_control);
 
-        if(Constants.orderModel.order_time.length()==0){
-            Date c = Calendar.getInstance().getTime();
-            System.out.println("Current time => " + c);
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        selecteddate = df.format(c);
+        currentdate = selecteddate;
 
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            selecteddate = df.format(c);
-            currentdate = selecteddate;
+        if(Constants.orderModel.order_time.length()==0){
             getallavailabletime(selecteddate);
         }else{
             selecteddate = Constants.orderModel.order_date;

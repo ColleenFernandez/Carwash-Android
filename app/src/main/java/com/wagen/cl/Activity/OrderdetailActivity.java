@@ -1,6 +1,7 @@
 package com.wagen.cl.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.GoalRow;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -44,6 +45,8 @@ import java.util.Map;
 public class OrderdetailActivity extends BaseActivity {
     TextView txv_address, txv_appointdate, txv_appointtime, txv_duration, txv_price;
     String phonenumber = "";
+    LinearLayout lyt_coupon;
+    EditText etx_coupon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,15 @@ public class OrderdetailActivity extends BaseActivity {
         txv_appointtime=(TextView)findViewById(R.id.txv_appointtime);
         txv_duration=(TextView)findViewById(R.id.txv_duration);
         txv_price=(TextView)findViewById(R.id.txv_price);
+        lyt_coupon=(LinearLayout)findViewById(R.id.lyt_coupon);
+        etx_coupon=(EditText)findViewById(R.id.etx_coupon);
+        etx_coupon.setVisibility(View.GONE);
+        lyt_coupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etx_coupon.getVisibility() == View.GONE) etx_coupon.setVisibility(View.VISIBLE);
+            }
+        });
 
         if(Constants.orderModel.order_type == 0){
             txv_address.setText(Preference.getInstance().getValue(this, "workshop", ""));
@@ -126,14 +138,14 @@ public class OrderdetailActivity extends BaseActivity {
 
 
     public void placeorder(View view) {
-        //showmessage(getString(R.string.thanksfororder));
+        showmessage(getString(R.string.thanksfororder));
 
        /*if(Constants.userModel.phoneverify_status == 0){
            confirmedphonenumber(Constants.userModel.phonenumber);
        }else{
          selectpaymentmethoddialog();
        }*/
-        selectpaymentmethoddialog();
+
     }
     public void confirmedphonenumber(String toString) {
         phonenumber = toString;

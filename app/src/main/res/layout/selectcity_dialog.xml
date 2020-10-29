@@ -44,21 +44,25 @@
         android:layout_marginRight="30dp"
         android:orientation="vertical"
         android:id="@+id/lyt_address">
-        <Spinner
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/edittextback"
-            android:id="@+id/city_spinner"/>
+            android:layout_height="wrap_content"/>
+
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="@string/inputaddress"
             android:id="@+id/etx_address"
             android:maxLines="3"
             android:textSize="16dp"
-            android:background="@drawable/cancelground"
-            android:padding="5dp"
+            android:background="@drawable/edittextback2"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:gravity="top|left"
             android:textColor="@color/black"
             />

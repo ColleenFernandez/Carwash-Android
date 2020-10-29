@@ -20,6 +20,14 @@
             android:textColor="@color/white"
             android:textSize="22dp"
             android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/menu"
+            android:onClick="gotodetail"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center|right"
+            app:tint="@color/white" />
     </FrameLayout>
 
     <FrameLayout

@@ -17,4 +17,5 @@ public class Constants {
     public static OrderModel orderModel = new OrderModel();
     public static int selectedvehicle = -1;
     public static String verifycode = "-1";
+    public static int frompagestatus_fororderlist = 0; // 0: from main, 1: from rating
 }
