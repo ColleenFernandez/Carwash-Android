@@ -5,27 +5,23 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.wagen.cl.Activity.Order1Activity;
 import com.wagen.cl.Constant.Constants;
@@ -33,15 +29,12 @@ import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.R;
-
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Step2Fragment extends Fragment {
     View view;
-    Order1Activity order1Activity;
+    static Order1Activity order1Activity;
     TextView txv_title1, txv_title2, txv_title3, txv_title4;
     TextView txv_price1, txv_price2, txv_price3, txv_price4;
     TextView txv_time1, txv_time2, txv_time3, txv_time4;
@@ -51,11 +44,10 @@ public class Step2Fragment extends Fragment {
 
     ArrayList<Packages> packages = new ArrayList<>();
     TextView txv_option1, txv_option2;
-    int previtem = 0, packageposition = -1;
+    static int previtem = 0;
+    static int packageposition = -1;
     LinearLayout lyt_firstitem, lyt_seconditem, lyt_thirditem, lyt_fourthitem;
-
-
-
+    BottomSheetDialog bottomSheetDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -157,22 +149,8 @@ public class Step2Fragment extends Fragment {
             }
         });
 
-        TextView txv_next =(TextView)view.findViewById(R.id.txv_next);
-        txv_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(packageposition == -1){
-                    Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
-                }else{
-                    Constants.orderModel.package_id = packageposition+1;
-                    ArrayList<String> cities = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_CITIES);
-                    Constants.orderModel.order_type = previtem;
-                    String workshop = Preference.getInstance().getValue(order1Activity, "workshop","");
-                    selectcitydialog(workshop, cities);
-                }
 
-            }
-        });
+
 
         return view;
     }
@@ -201,6 +179,12 @@ public class Step2Fragment extends Fragment {
             packageposition = -1;
             refreshbuttons(-1);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 
     @Override
@@ -281,6 +265,13 @@ public class Step2Fragment extends Fragment {
             txv_3.setTextColor(getResources().getColor(R.color.black));
             txv_4.setTextColor(getResources().getColor(R.color.black));
         }
+        Log.d("bottomsheet==", String.valueOf(position));
+        if(position > -1) {
+            bottomSheetDialog = BottomSheetDialog.getInstance();
+            bottomSheetDialog.show(getChildFragmentManager(),"bottomSheet");
+
+        }
+
     }
     @Override
     public void onAttach(Context context) {
@@ -298,7 +289,7 @@ public class Step2Fragment extends Fragment {
     }
 
 
-    public void selectcitydialog(String shopaddress, ArrayList<String> cities){
+    public static void selectcitydialog(String shopaddress, ArrayList<String> cities){
         LinearLayout lyt_address;
         TextView txvtitle, txvshopaddress, txvnext;
         MaterialSpinner spinner;
@@ -308,7 +299,7 @@ public class Step2Fragment extends Fragment {
         settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         settingdialog.setContentView(R.layout.selectcity_dialog);
         settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(order1Activity.getResources().getColor(R.color.transparent)));
         lyt_address=(LinearLayout) settingdialog.findViewById(R.id.lyt_address);
         txvtitle=(TextView) settingdialog.findViewById(R.id.txv_title);
         txvshopaddress=(TextView) settingdialog.findViewById(R.id.txv_shopaddress);
@@ -319,14 +310,14 @@ public class Step2Fragment extends Fragment {
 
 
         if(Constants.orderModel.order_type == 0){
-            txvtitle.setText(getResources().getString(R.string.shopaddressis));
+            txvtitle.setText(order1Activity.getResources().getString(R.string.shopaddressis));
             lyt_address.setVisibility(View.GONE);
             txvshopaddress.setVisibility(View.VISIBLE);
             txvshopaddress.setText(shopaddress);
         }else{
             lyt_address.setVisibility(View.VISIBLE);
             txvshopaddress.setVisibility(View.GONE);
-            txvtitle.setText(getResources().getString(R.string.inputaddress));
+            txvtitle.setText(order1Activity.getResources().getString(R.string.inputaddress));
 
 
             spinner.setItems(cities);
@@ -347,7 +338,7 @@ public class Step2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(Constants.orderModel.order_type == 1 && etx_address.getText().toString().length()==0){
-                    Toast.makeText(order1Activity, getResources().getString(R.string.inputaddress), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(order1Activity, order1Activity.getResources().getString(R.string.inputaddress), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(Constants.orderModel.order_type == 1){
@@ -363,12 +354,43 @@ public class Step2Fragment extends Fragment {
         settingdialog.show();
     }
 
-    public int selectedcitypostion(ArrayList<String> cities){
+    public static int selectedcitypostion(ArrayList<String> cities){
         int postion= 0;
         for(int i=0; i<cities.size(); i++){
             if(cities.get(i).equals(Constants.orderModel.city)) postion = i;
         }
         return  postion;
+    }
+
+    public static class BottomSheetDialog extends BottomSheetDialogFragment {
+        public static BottomSheetDialog getInstance() { return new BottomSheetDialog(); }
+        public TextView txvnew;
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.bottom_sheet_persistent, container,false);
+            txvnew = view.findViewById(R.id.txv_next1);
+            txvnew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(packageposition == -1){
+                        Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
+                    }else{
+                        Constants.orderModel.package_id = packageposition+1;
+                        ArrayList<String> cities = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_CITIES);
+                        Constants.orderModel.order_type = previtem;
+                        String workshop = Preference.getInstance().getValue(order1Activity, "workshop","");
+                        selectcitydialog(workshop, cities);
+                    }
+
+
+                }
+            });
+
+            return view;
+        }
     }
 
 
