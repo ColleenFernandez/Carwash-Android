@@ -76,6 +76,7 @@ public class ForgotActivity extends BaseActivity {
             String result_code = response.getString("message");
             if (result_code.equals("success")) {
                 Constants.verifycode = response.getString("verificationcode");
+                Constants.email = etxemail.getText().toString();
                 Log.d("verifycode==", Constants.verifycode);
                 Intent intent = new Intent(this, Forgot2Activity.class);
                 startActivity(intent);

@@ -23,6 +23,7 @@ import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.OrderModel;
 import com.wagen.cl.Model.Packages;
@@ -35,9 +36,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -47,6 +52,7 @@ public class OrderdetailActivity extends BaseActivity {
     String phonenumber = "";
     LinearLayout lyt_coupon;
     EditText etx_coupon;
+    int paimentmethod = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,13 +144,13 @@ public class OrderdetailActivity extends BaseActivity {
 
 
     public void placeorder(View view) {
-        showmessage(getString(R.string.thanksfororder));
+        //showmessage(getString(R.string.thanksfororder));
 
        /*if(Constants.userModel.phoneverify_status == 0){
            confirmedphonenumber(Constants.userModel.phonenumber);
-       }else{
+       }else{*/
          selectpaymentmethoddialog();
-       }*/
+       //}
 
     }
     public void confirmedphonenumber(String toString) {
@@ -219,17 +225,37 @@ public class OrderdetailActivity extends BaseActivity {
 
 
     public void createneworder(int paymentmethod){  // 0: by membershipm 1: by direct pay
+        paimentmethod = paymentmethod;
+        int discountvalue = 0;
+        int couponid = -1;
+        if(etx_coupon.getText().toString().trim().length()>0){
+            int[] checkstatus = checkcouponexists(etx_coupon.getText().toString().trim());
+            if(checkstatus[0] == -1){
+                Toast.makeText(this, getString(R.string.entercorrectcouponcode), Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                couponid = checkstatus[0];
+                discountvalue = checkstatus[1];
+            }
+        }
+        String totalprice = gettotalprice();
+        String paidprice = totalprice;
+        if(couponid != -1){
+            paidprice = String.valueOf((int)Integer.parseInt(totalprice)*(100 - discountvalue)/100);
+        }
+        Log.d("paidprice==", paidprice);
+        Log.d("coupon==", String.valueOf(couponid)+"__"+String.valueOf(discountvalue));
+
         Map<String, String> params = new HashMap<>();
         params.put("user_id", String.valueOf(Constants.userModel.user_id));
         params.put("order_date", Constants.orderModel.order_date);
         params.put("order_time", Constants.orderModel.order_time);
         params.put("duration_time", getdurationtime());
-        params.put("total_price", gettotalprice());
+        params.put("total_price", totalprice);
         params.put("car_id", String.valueOf(Constants.orderModel.car_id));
         params.put("package_id", String.valueOf(Constants.orderModel.package_id));
         params.put("service_ids", getserviceids()[0]);
         params.put("service_qty", getserviceids()[1]);
-
         params.put("order_type", String.valueOf(Constants.orderModel.order_type));  // home or worshop
         if(Constants.orderModel.order_type == 0){
             params.put("order_city", "");
@@ -239,6 +265,10 @@ public class OrderdetailActivity extends BaseActivity {
             params.put("order_address", Constants.orderModel.address);
         }
         params.put("payment_method", String.valueOf(paymentmethod));
+
+        params.put("coupon_id", String.valueOf(couponid));
+        params.put("discount_percent", String.valueOf(discountvalue));
+        params.put("paid_price", paidprice);
         call_postApi(Constants.BASE_URL, "createorder", params);
     }
 
@@ -255,6 +285,7 @@ public class OrderdetailActivity extends BaseActivity {
                     Intent intent = new Intent(OrderdetailActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();*/
+                    if(paimentmethod == 0) Constants.userModel.membership_count --;
                     showmessage(getString(R.string.thanksfororder));
                 }
             }else {
@@ -292,5 +323,48 @@ public class OrderdetailActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    public int[] checkcouponexists(String enteredcouponcode){
+        int[] returnvalue = new int[]{-1,0};
+        int couponpercent = 0;
+        int couponid = -1;
+        Coupon coupon = new Coupon();
+        ArrayList<Coupon> coupons = Preference.getInstance().getSharedcouponPreference(this, PrefConst.PREFKEY_COUPON);
+        for(int i=0; i<coupons.size(); i++){
+            if(enteredcouponcode.equals(coupons.get(i).code)){
+                couponpercent = coupons.get(i).discountvalue;
+                couponid = coupons.get(i).id;
+                coupon = coupons.get(i);
+            }
+        }
+        if(couponid != -1){
+            try {
+                Calendar calendar = Calendar.getInstance();
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd");
+                String  date = simpleDateFormat.format(calendar.getTime());
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date startdate = dateFormat.parse(coupon.start_daet);
+                Date endate = dateFormat.parse(coupon.end_date);
+                Date currentdate = dateFormat.parse(date);
+                boolean checkdaterange =  checkdaterange(currentdate, startdate, endate);
+                if(checkdaterange){
+                    returnvalue[0] = coupon.id;
+                    returnvalue[1] = coupon.discountvalue;
+                }
+
+            }
+            catch(ParseException pe ) {
+                // handle the failure
+            }
+        }
+
+        return returnvalue;
+    }
+
+    public boolean checkdaterange(Date testDate, Date startDate, Date endDate){
+        return testDate.after(startDate) && testDate.before(endDate);
     }
 }

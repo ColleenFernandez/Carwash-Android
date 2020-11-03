@@ -97,7 +97,7 @@ public class MembershipAdapter extends BaseAdapter {
         holder.txvpurchasenow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                _context.purchasemembership(trip1, position);
             }
         });
 
@@ -112,8 +112,9 @@ public class MembershipAdapter extends BaseAdapter {
     }
 
     public String changedateformattoappstyle(String date){ // from 2018-12-28 to 12/28/2018
+        String newformate = "";
         String[] datearray=date.split("-");
-        String newformate=datearray[2]+"/"+datearray[1]+"/"+datearray[0];
+        if(datearray.length==3)      newformate=datearray[2]+"/"+datearray[1]+"/"+datearray[0];
         return newformate;
     }
 

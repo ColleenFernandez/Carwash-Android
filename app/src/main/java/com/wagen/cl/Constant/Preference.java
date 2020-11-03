@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Promotionmodel;
@@ -209,6 +210,30 @@ public class Preference {
             mSelectedList = new ArrayList<Service>();
         }else {
             Type type =  new TypeToken<ArrayList<Service>>(){}.getType();
+            mSelectedList = gson.fromJson(json, type);
+        }
+        return mSelectedList;
+    }
+
+    public void putSharedcouponPreference(Context context, String key, ArrayList<Coupon> value){
+        SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mPref.edit();
+        Gson gSon = new Gson();
+        String json = gSon.toJson(value);
+        editor.putString(key,json);
+        editor.commit();
+    }
+
+
+    public ArrayList<Coupon> getSharedcouponPreference(Context context, String key ){
+        ArrayList<Coupon> mSelectedList = new ArrayList<Coupon>();
+        SharedPreferences mPref = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPref.getString(key, "");
+        if (json.isEmpty()){
+            mSelectedList = new ArrayList<Coupon>();
+        }else {
+            Type type =  new TypeToken<ArrayList<Coupon>>(){}.getType();
             mSelectedList = gson.fromJson(json, type);
         }
         return mSelectedList;

@@ -81,11 +81,12 @@
             android:layout_marginRight="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/lyt_forgot"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lyt_forgot"
+
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"

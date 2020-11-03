@@ -43,6 +43,7 @@ import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Service;
@@ -265,6 +266,20 @@ public class LoginActivity extends BaseActivity {
                     services1.add(oneserviceModel);
                 }
                 Preference.getInstance().putSharedservicePreference(LoginActivity.this, PrefConst.PREFKEY_SERVICES, services1);
+
+                JSONArray couponcodes = response.getJSONArray("couponcodes");
+                ArrayList<Coupon> couponcodes1 = new ArrayList<>();
+                for(int i=0; i<couponcodes.length(); i++){
+                    JSONObject oneservice = couponcodes.getJSONObject(i);
+                    Coupon onecoupon = new Coupon();
+                    onecoupon.id = oneservice.getInt("id");
+                    onecoupon.code = oneservice.getString("code");
+                    onecoupon.start_daet = oneservice.getString("start_date");
+                    onecoupon.end_date = oneservice.getString("end_date");
+                    onecoupon.discountvalue = Integer.parseInt(oneservice.getString("discount_value"));
+                    couponcodes1.add(onecoupon);
+                }
+                Preference.getInstance().putSharedcouponPreference(LoginActivity.this, PrefConst.PREFKEY_COUPON, couponcodes1);
 
                 if( userModel.account_type== 1) socialLogout();
 

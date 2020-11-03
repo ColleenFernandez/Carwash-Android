@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Forgot2Activity extends BaseActivity {
     EditText   etxpassword, etxconfirmpass;
     Pinview etxcode;
     TextView txvcode;
+    LinearLayout lyt_forgot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class Forgot2Activity extends BaseActivity {
         etxpassword=(EditText)findViewById(R.id.etx_password);
         etxconfirmpass=(EditText)findViewById(R.id.etx_confirmpassword);
         txvcode=(TextView)findViewById(R.id.txv_con);
+        lyt_forgot =(LinearLayout)findViewById(R.id.lyt_forgot);
+        lyt_forgot.setVisibility(View.GONE);
 
         etxcode.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
@@ -92,7 +96,7 @@ public class Forgot2Activity extends BaseActivity {
     public void callupdatepassword(View view) {
         if(checkvalid()){
             Map<String, String> params = new HashMap<>();
-            params.put("email", Preference.getInstance().getValue(this, PrefConst.PREFKEY_USEREMAIL,""));
+            params.put("email", Constants.email);
             params.put("password", etxpassword.getText().toString());
             call_postApi(Constants.BASE_URL, "updatepassword", params);
         }
@@ -103,7 +107,12 @@ public class Forgot2Activity extends BaseActivity {
             Toast.makeText(this, R.string.enter_corret_code, Toast.LENGTH_SHORT).show();
         }else{
             txvcode.setVisibility(View.GONE);
+            lyt_forgot.setVisibility(View.VISIBLE);
             Toast.makeText(this, "Verify Confirmed", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void backtologin(View view) {
+        back();
     }
 }

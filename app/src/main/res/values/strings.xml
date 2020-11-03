@@ -18,6 +18,8 @@
     <string name="enter_code">Please enter verify code</string>
     <string name="enter_corret_code">Please enter correct verify code</string>
     <string name="enter_password">Please enter password</string>
+    <string name="enter_verifycode">Please enter verification code</string>
+    <string name="enter_verifycorrectcode">Please enter correct verification code</string>
     <string name="signuptitle">SignUp</string>
     <string name="forgottitle">Forgot Password</string>
     <string name="backtologin">Volver al ingreso</string>
@@ -32,6 +34,7 @@
     <string name="selectatime">Please select a time</string>
     <string name="sentreview">Thanks for your review, it help us to improve every day!</string>
     <string name="back">Back</string>
+    <string name="entercorrectcouponcode">Please enter correct coupon code</string>
     <string name="pendingrevieworders">Pending Review Orders</string>
     <string name="givereview">Give Review</string>
     <string name="membership">MemberShip</string>
@@ -74,6 +77,7 @@
     <string name="enteryouraddress">Input Address</string>
 
     <string name="passupdatesuccess">Password updated successfully, please try login</string>
+    <string name="purchasesuccess">Membership purchased successfully</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <array name="steps">

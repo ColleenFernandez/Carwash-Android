@@ -42,6 +42,7 @@ import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
+import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Service;
@@ -162,7 +163,7 @@ public class SignupActivity extends BaseActivity {
         return true;
     }
     public void callsignup(int signuptype){
-        /*Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("first_name", etx_firstname.getText().toString());
         params.put("last_name", etx_lastname.getText().toString());
         params.put("email", etx_email.getText().toString());
@@ -171,7 +172,7 @@ public class SignupActivity extends BaseActivity {
         params.put("photo", photourl);
         params.put("account_type", String.valueOf(signuptype));
         params.put("social_id", socialid);
-        call_postApi(Constants.BASE_URL, "registerUser", params);*/
+        call_postApi(Constants.BASE_URL, "registerUser", params);
     }
 
     public void gotologin(View view) {
@@ -273,6 +274,19 @@ public class SignupActivity extends BaseActivity {
                 }
                 Preference.getInstance().putSharedmembershipPreference(SignupActivity.this, PrefConst.PREFKEY_MEMBERSHIP, membershipModels);
 
+                JSONArray couponcodes = response.getJSONArray("couponcodes");
+                ArrayList<Coupon> couponcodes1 = new ArrayList<>();
+                for(int i=0; i<couponcodes.length(); i++){
+                    JSONObject oneservice = couponcodes.getJSONObject(i);
+                    Coupon onecoupon = new Coupon();
+                    onecoupon.id = oneservice.getInt("id");
+                    onecoupon.code = oneservice.getString("code");
+                    onecoupon.start_daet = oneservice.getString("start_date");
+                    onecoupon.end_date = oneservice.getString("end_date");
+                    onecoupon.discountvalue = Integer.parseInt(oneservice.getString("discount_value"));
+                    couponcodes1.add(onecoupon);
+                }
+                Preference.getInstance().putSharedcouponPreference(SignupActivity.this, PrefConst.PREFKEY_COUPON, couponcodes1);
 
                 if( userModel.account_type== 1) socialLogout();
 
@@ -394,6 +408,7 @@ public class SignupActivity extends BaseActivity {
     }
 
     private void processSocial(String email, String firstname, String lastname, String photourl, String signuptype) {
+        if(lastname == null) lastname = "";
         Map<String, String> params = new HashMap<>();
         params.put("first_name", firstname);
         params.put("last_name", lastname);
