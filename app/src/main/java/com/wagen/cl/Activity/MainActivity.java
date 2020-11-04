@@ -49,16 +49,7 @@ public class MainActivity extends BaseActivity {
         indicator_line =(ViewPagerIndicator)findViewById(R.id.indicator_line);
         Constants.frompagestatus_fororderlist = 0;
 
-        for(int i = 0; i<3; i++){
-            Promotionmodel promotionmodel = new Promotionmodel();
-            promotionmodel.id = i;
-            promotionmodel.title = "Promotion"+String.valueOf(i);
-            promotionmodel.des = "Promotion Description "+String.valueOf(i);
-            promotionmodel.banner = "https://www.crushpixel.com/static13/preview2/stock-photo-flash-sale-banner-promotion-template-design-on-red-background-with-golden-thunder-big-sale-special-60-offer-labels-end-of-season-special-offer-banner-shop-now-1224771.jpg";
-            promotionmodel.bigimage = "https://i.pinimg.com/474x/66/62/54/66625423329517738b250856e0732fb1.jpg";
-            promotionmodels.add(promotionmodel);
-        }
-        Preference.getInstance().putSharedpromotionPreference(this, PrefConst.PREFKEY_Promotion, promotionmodels);
+        promotionmodels = Preference.getInstance().getSharedpromoPreference(this, PrefConst.PREFKEY_Promotion);
 
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         indicator_line.setViewPager(viewPager);

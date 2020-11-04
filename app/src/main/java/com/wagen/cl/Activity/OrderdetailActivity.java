@@ -131,7 +131,7 @@ public class OrderdetailActivity extends BaseActivity {
         int totalprice = 0;
         for(int i = 0; i<packages.size(); i++){
             if(Constants.orderModel.package_id == packages.get(i).package_id){
-                totalprice+= Integer.parseInt(packages.get(i).package_price);
+               // totalprice+= Integer.parseInt(packages.get(i).package_price);
             }
         }
 

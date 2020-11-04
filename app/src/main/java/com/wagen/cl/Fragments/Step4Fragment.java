@@ -169,6 +169,7 @@ public class Step4Fragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("city", Constants.orderModel.city);
                 params.put("date", date);
                 return params;
             }
@@ -182,6 +183,7 @@ public class Step4Fragment extends Fragment {
 
     public void Parseresonse(String json) {
         try {
+            Log.d("response==", json);
             JSONObject response = new JSONObject(json);
             String result_code = response.getString("message");
             if (result_code.equals("success")) {

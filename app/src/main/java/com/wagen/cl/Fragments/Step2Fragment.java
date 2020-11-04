@@ -29,122 +29,47 @@ import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.R;
+import com.wagen.cl.Utils.VerticalTextView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Step2Fragment extends Fragment {
     View view;
     static Order1Activity order1Activity;
-    TextView txv_title1, txv_title2, txv_title3, txv_title4;
-    TextView txv_price1, txv_price2, txv_price3, txv_price4;
-    TextView txv_time1, txv_time2, txv_time3, txv_time4;
-    TextView txv_des1, txv_des2, txv_des3, txv_des4;
-    LinearLayout lyt_1,lyt_2,lyt_3,lyt_4;
-    TextView txv_1,txv_2,txv_3,txv_4;
-
     ArrayList<Packages> packages = new ArrayList<>();
-    TextView txv_option1, txv_option2;
-    static int previtem = 0;
-    static int packageposition = -1;
-    LinearLayout lyt_firstitem, lyt_seconditem, lyt_thirditem, lyt_fourthitem;
+    static ArrayList<Packages> filteredpackages = new ArrayList<>();
+    LinearLayout lyt_container;
+    ArrayList<LinearLayout> buttonlayouts = new ArrayList<>();
+    ArrayList<VerticalTextView> buttontextviews = new ArrayList<>();
     BottomSheetDialog bottomSheetDialog;
+
+    TextView txv_option1, txv_option2;
+    static int filtertype = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_step2, container, false);
         packages = Preference.getInstance().getSharedpackagesmodelPreference(order1Activity, PrefConst.PREFKEY_PACKAGES);
-
-        lyt_firstitem=(LinearLayout)view.findViewById(R.id.lyt_firstitem);
-        lyt_seconditem=(LinearLayout)view.findViewById(R.id.lyt_seconditem);
-        lyt_thirditem=(LinearLayout)view.findViewById(R.id.lyt_thirditem);
-        lyt_fourthitem=(LinearLayout)view.findViewById(R.id.lyt_fourthitem);
-
-        lyt_1=(LinearLayout)view.findViewById(R.id.lyt_1);
-        lyt_2=(LinearLayout)view.findViewById(R.id.lyt_2);
-        lyt_3=(LinearLayout)view.findViewById(R.id.lyt_3);
-        lyt_4=(LinearLayout)view.findViewById(R.id.lyt_4);
-
-        txv_title1=(TextView)view.findViewById(R.id.txv_title1);
-        txv_title2=(TextView)view.findViewById(R.id.txv_title2);
-        txv_title3=(TextView)view.findViewById(R.id.txv_title3);
-        txv_title4=(TextView)view.findViewById(R.id.txv_title4);
-
-        txv_price1=(TextView)view.findViewById(R.id.txv_price1);
-        txv_price2=(TextView)view.findViewById(R.id.txv_price2);
-        txv_price3=(TextView)view.findViewById(R.id.txv_price3);
-        txv_price4=(TextView)view.findViewById(R.id.txv_price4);
-
-        txv_time1=(TextView)view.findViewById(R.id.txv_time1);
-        txv_time2=(TextView)view.findViewById(R.id.txv_time2);
-        txv_time3=(TextView)view.findViewById(R.id.txv_time3);
-        txv_time4=(TextView)view.findViewById(R.id.txv_time4);
-
-        txv_des1=(TextView)view.findViewById(R.id.txv_des1);
-        txv_des2=(TextView)view.findViewById(R.id.txv_des2);
-        txv_des3=(TextView)view.findViewById(R.id.txv_des3);
-        txv_des4=(TextView)view.findViewById(R.id.txv_des4);
-
-        txv_1 =(TextView)view.findViewById(R.id.txv_1);
-        txv_2 =(TextView)view.findViewById(R.id.txv_2);
-        txv_3 =(TextView)view.findViewById(R.id.txv_3);
-        txv_4 =(TextView)view.findViewById(R.id.txv_4);
+        lyt_container=(LinearLayout)view.findViewById(R.id.lyt_container);
 
 
-        txv_title1.setText(packages.get(0).package_name);
-        txv_price1.setText("$"+numberformating(packages.get(0).package_price));
-        txv_time1.setText(packages.get(0).package_time+"Mins");
-        txv_des1.setText(packages.get(0).package_description.replaceAll("_","\n"));
-        txv_title2.setText(packages.get(1).package_name);
-        txv_price2.setText("$"+numberformating(packages.get(1).package_price));
-        txv_time2.setText(packages.get(1).package_time+"Mins");
-        txv_des2.setText(packages.get(1).package_description.replaceAll("_","\n"));
-        txv_title3.setText(packages.get(2).package_name);
-        txv_price3.setText("$"+numberformating(packages.get(2).package_price));
-        txv_time3.setText(packages.get(2).package_time+"Mins");
-        txv_des3.setText(packages.get(2).package_description.replaceAll("_","\n"));
-        txv_title4.setText(packages.get(3).package_name);
-        txv_price4.setText("$"+numberformating(packages.get(3).package_price));
-        txv_time4.setText(packages.get(3).package_time+"Mins");
-        txv_des4.setText(packages.get(3).package_description.replaceAll("_","\n"));
-
-        lyt_firstitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshbuttons(0);
-            }
-        });
-        lyt_seconditem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshbuttons(1);
-            }
-        });
-        lyt_thirditem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshbuttons(2);
-            }
-        });
-
-        lyt_fourthitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshbuttons(3);
-            }
-        });
 
         txv_option1 =(TextView)view.findViewById(R.id.txv_option1);
         txv_option2 =(TextView)view.findViewById(R.id.txv_option2);
         txv_option1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(txv_option1.getBackground() != getResources().getDrawable(R.drawable.loginbuttonback1))
                 selected_option1();
             }
         });
         txv_option2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(txv_option2.getBackground() != getResources().getDrawable(R.drawable.loginbuttonback1))
                 selected_option2();
             }
         });
@@ -156,29 +81,21 @@ public class Step2Fragment extends Fragment {
     }
 
     private void selected_option2() {
-        if(previtem != 1){
-            packageposition = -1;
-            txv_option1.setTextColor(getResources().getColor(R.color.black));
-            txv_option1.setBackgroundResource(R.drawable.segment_bg);
-            txv_option2.setTextColor(getResources().getColor(R.color.white));
-            txv_option2.setBackgroundResource(R.drawable.loginbuttonback1);
-            lyt_firstitem.setVisibility(View.GONE);
-            previtem = 1;
-            refreshbuttons(-1);
-        }
+       filtertype = 1;
+        txv_option1.setTextColor(getResources().getColor(R.color.black));
+        txv_option1.setBackgroundResource(R.drawable.segment_bg);
+        txv_option2.setTextColor(getResources().getColor(R.color.white));
+        txv_option2.setBackgroundResource(R.drawable.loginbuttonback1);
+        refreshbuttons(1);
     }
 
     private void selected_option1() {
-        if(previtem != 0){
-            txv_option2.setTextColor(getResources().getColor(R.color.black));
-            txv_option2.setBackgroundResource(R.drawable.segment_bg);
-            txv_option1.setTextColor(getResources().getColor(R.color.white));
-            txv_option1.setBackgroundResource(R.drawable.loginbuttonback1);
-            lyt_firstitem.setVisibility(View.VISIBLE);
-            previtem = 0;
-            packageposition = -1;
-            refreshbuttons(-1);
-        }
+        filtertype = 0;
+        txv_option2.setTextColor(getResources().getColor(R.color.black));
+        txv_option2.setBackgroundResource(R.drawable.segment_bg);
+        txv_option1.setTextColor(getResources().getColor(R.color.white));
+        txv_option1.setBackgroundResource(R.drawable.loginbuttonback1);
+        refreshbuttons(0);
     }
 
     @Override
@@ -191,88 +108,80 @@ public class Step2Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("carid==", String.valueOf(Constants.orderModel.car_id));
-        previtem = -1;
-        if(Constants.orderModel.order_type == 0) {
+        if(Constants.orderModel.order_type == 0 || Constants.orderModel.order_type == -1) {
             selected_option1();
         }
         else if(Constants.orderModel.order_type == 1) selected_option2();
-        else previtem = 0;
-
-        refreshbuttons(Constants.orderModel.package_id-1);
-    }
-
-    public void refreshbuttons(int position){
-        packageposition = position;
-        if(previtem == 0){
-            txv_price1.setText("$"+numberformating(packages.get(0).package_price));
-            txv_price2.setText("$"+numberformating(packages.get(1).package_price));
-            txv_price3.setText("$"+numberformating(packages.get(2).package_price));
-            txv_price4.setText("$"+numberformating(packages.get(3).package_price));
-        }else{
-            txv_price1.setText("$"+numberformating(packages.get(0).package_price_home));
-            txv_price2.setText("$"+numberformating(packages.get(1).package_price_home));
-            txv_price3.setText("$"+numberformating(packages.get(2).package_price_home));
-            txv_price4.setText("$"+numberformating(packages.get(3).package_price_home));
-        }
-
-        if(position == 0){
-            lyt_1.setBackgroundResource(R.drawable.package_select);
-            lyt_2.setBackgroundResource(R.drawable.package_unselect);
-            lyt_3.setBackgroundResource(R.drawable.package_unselect);
-            lyt_4.setBackgroundResource(R.drawable.package_unselect);
-            txv_1.setTextColor(getResources().getColor(R.color.white));
-            txv_2.setTextColor(getResources().getColor(R.color.black));
-            txv_3.setTextColor(getResources().getColor(R.color.black));
-            txv_4.setTextColor(getResources().getColor(R.color.black));
-        }
-        if(position == 1){
-            lyt_2.setBackgroundResource(R.drawable.package_select);
-            lyt_1.setBackgroundResource(R.drawable.package_unselect);
-            lyt_3.setBackgroundResource(R.drawable.package_unselect);
-            lyt_4.setBackgroundResource(R.drawable.package_unselect);
-            txv_2.setTextColor(getResources().getColor(R.color.white));
-            txv_1.setTextColor(getResources().getColor(R.color.black));
-            txv_3.setTextColor(getResources().getColor(R.color.black));
-            txv_4.setTextColor(getResources().getColor(R.color.black));
-        }
-        if(position == 2){
-            lyt_3.setBackgroundResource(R.drawable.package_select);
-            lyt_2.setBackgroundResource(R.drawable.package_unselect);
-            lyt_1.setBackgroundResource(R.drawable.package_unselect);
-            lyt_4.setBackgroundResource(R.drawable.package_unselect);
-            txv_3.setTextColor(getResources().getColor(R.color.white));
-            txv_2.setTextColor(getResources().getColor(R.color.black));
-            txv_1.setTextColor(getResources().getColor(R.color.black));
-            txv_4.setTextColor(getResources().getColor(R.color.black));
-        }
-        if(position == 3){
-            lyt_4.setBackgroundResource(R.drawable.package_select);
-            lyt_2.setBackgroundResource(R.drawable.package_unselect);
-            lyt_3.setBackgroundResource(R.drawable.package_unselect);
-            lyt_1.setBackgroundResource(R.drawable.package_unselect);
-            txv_4.setTextColor(getResources().getColor(R.color.white));
-            txv_2.setTextColor(getResources().getColor(R.color.black));
-            txv_3.setTextColor(getResources().getColor(R.color.black));
-            txv_1.setTextColor(getResources().getColor(R.color.black));
-        }
-        if(position == -1){
-            lyt_4.setBackgroundResource(R.drawable.package_unselect);
-            lyt_2.setBackgroundResource(R.drawable.package_unselect);
-            lyt_3.setBackgroundResource(R.drawable.package_unselect);
-            lyt_1.setBackgroundResource(R.drawable.package_unselect);
-            txv_1.setTextColor(getResources().getColor(R.color.black));
-            txv_2.setTextColor(getResources().getColor(R.color.black));
-            txv_3.setTextColor(getResources().getColor(R.color.black));
-            txv_4.setTextColor(getResources().getColor(R.color.black));
-        }
-        Log.d("bottomsheet==", String.valueOf(position));
-        if(position > -1) {
-            bottomSheetDialog = BottomSheetDialog.getInstance();
-            bottomSheetDialog.show(getChildFragmentManager(),"bottomSheet");
-
-        }
 
     }
+
+
+
+    public void refreshbuttons(int position){// 0 from workshop, 1: from home
+        filteredpackages = new ArrayList<>();
+        buttonlayouts = new ArrayList<>();
+        buttontextviews = new ArrayList<>();
+        for(int i=0; i<packages.size(); i++){
+            Packages packageitem = packages.get(i);
+            if(Constants.orderModel.package_id == packageitem.package_id) packageitem.selected_status = true;
+            for(int j=0; j<packageitem.packagePricesModels.size(); j++){
+                if(packageitem.packagePricesModels.get(j).car_id == Constants.orderModel.car_id){
+                    if(position == 0) packageitem.selected_car_price = packageitem.packagePricesModels.get(j).price;
+                    else if(position == 1) packageitem.selected_car_price = packageitem.packagePricesModels.get(j).price_home;
+                    if(position == 0 || (position == 1 && packageitem.package_available_for_home.equals("Yes"))) filteredpackages.add(packageitem);
+                }
+            }
+        }
+        lyt_container.removeAllViews();
+        for(int i=0; i<filteredpackages.size(); i++){
+            View child = getLayoutInflater().inflate(R.layout.package_item, null);
+            TextView txvtitle = (TextView) child.findViewById(R.id.txv_title1);
+            TextView txvprice =(TextView)child.findViewById(R.id.txv_price1);
+            TextView txvtime =(TextView)child.findViewById(R.id.txv_time1);
+            TextView txvdes = (TextView)child.findViewById(R.id.txv_des1);
+            VerticalTextView txv_button =(VerticalTextView) child.findViewById(R.id.txv_button);
+            txv_button.setId(i+100);
+            LinearLayout lyt_butto=(LinearLayout) child.findViewById(R.id.lyt_button);
+            lyt_butto.setId(i);
+            buttonlayouts.add(lyt_butto);
+            buttontextviews.add(txv_button);
+            LinearLayout lyt_item =(LinearLayout)child.findViewById(R.id.lyt_item);
+
+            txvtitle.setText(filteredpackages.get(i).package_name);
+            txvprice.setText("$"+ numberformating(filteredpackages.get(i).selected_car_price));
+            txvtime.setText(filteredpackages.get(i).package_time+"Mins");
+            txvdes.setText(filteredpackages.get(i).package_description.replaceAll("_","\n"));
+            int finalI = i;
+            lyt_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refreshselectedbuttons(finalI);
+                }
+            });
+
+            lyt_container.addView(child);
+        }
+
+
+    }
+
+    public void refreshselectedbuttons(int position){
+        for(int i1=0; i1<buttonlayouts.size(); i1++){
+            if(i1== position){
+                buttonlayouts.get(i1).setBackgroundResource(R.drawable.package_select);
+                buttontextviews.get(i1).setTextColor(getResources().getColor(R.color.white));
+                filteredpackages.get(i1).selected_status = true;
+            }else{
+                buttonlayouts.get(i1).setBackgroundResource(R.drawable.package_unselect);
+                buttontextviews.get(i1).setTextColor(getResources().getColor(R.color.black));
+                filteredpackages.get(i1).selected_status = false;
+            }
+        }
+        bottomSheetDialog = BottomSheetDialog.getInstance();
+        bottomSheetDialog.show(getChildFragmentManager(),"bottomSheet");
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -374,13 +283,15 @@ public class Step2Fragment extends Fragment {
             txvnew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String[] selectedpackagevalues = checkpageposition();
 
-                    if(packageposition == -1){
+                    if(selectedpackagevalues[0].equals("-1")){
                         Toast.makeText(order1Activity, R.string.selectpackage, Toast.LENGTH_SHORT).show();
                     }else{
-                        Constants.orderModel.package_id = packageposition+1;
+                        Constants.orderModel.package_id = Integer.parseInt(selectedpackagevalues[0]);
+                        Constants.orderModel.package_price = selectedpackagevalues[1];
+                        Constants.orderModel.order_type = filtertype;
                         ArrayList<String> cities = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_CITIES);
-                        Constants.orderModel.order_type = previtem;
                         String workshop = Preference.getInstance().getValue(order1Activity, "workshop","");
                         selectcitydialog(workshop, cities);
                     }
@@ -391,6 +302,17 @@ public class Step2Fragment extends Fragment {
 
             return view;
         }
+    }
+    public static String[] checkpageposition(){
+        int selectedpackageid = -1;
+        String selectedpackageprice = "";
+        for(int i= 0; i<filteredpackages.size(); i++){
+            if(filteredpackages.get(i).selected_status == true){
+                selectedpackageid = filteredpackages.get(i).package_id;
+                selectedpackageprice = filteredpackages.get(i).selected_car_price;
+            }
+        }
+        return new String[]{String.valueOf(selectedpackageid), selectedpackageprice};
     }
 
 

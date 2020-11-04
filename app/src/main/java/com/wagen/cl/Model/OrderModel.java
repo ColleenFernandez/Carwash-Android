@@ -6,6 +6,7 @@ public class OrderModel {
     public int order_id = -1;
     public int car_id = -1;
     public int package_id = -1;
+    public String package_price = "";
     public String order_date="";
     public String order_time = "";
     public int order_status = -1;

@@ -45,7 +45,9 @@ import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.Model.CarModel;
 import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
+import com.wagen.cl.Model.PackagePricesModel;
 import com.wagen.cl.Model.Packages;
+import com.wagen.cl.Model.Promotionmodel;
 import com.wagen.cl.Model.Service;
 import com.wagen.cl.Model.UserModel;
 import com.wagen.cl.R;
@@ -202,6 +204,20 @@ public class LoginActivity extends BaseActivity {
 
                 Preference.getInstance().put(this, "workshop", response.getJSONObject("workshop").getString("name"));
 
+                JSONArray promotionsjson = response.getJSONArray("promotions");
+                ArrayList<Promotionmodel> promotionmodels = new ArrayList<>();
+                for(int i = 0; i<promotionsjson.length(); i++){
+                    JSONObject oneobject = promotionsjson.getJSONObject(i);
+                    Promotionmodel promotionmodel = new Promotionmodel();
+                    promotionmodel.id = oneobject.getInt("id");
+                    promotionmodel.title = oneobject.getString("title");
+                    promotionmodel.des = oneobject.getString("description");
+                    promotionmodel.banner = oneobject.getString("banner_image");
+                    promotionmodel.bigimage = oneobject.getString("full_image");
+                    promotionmodels.add(promotionmodel);
+                }
+                Preference.getInstance().putSharedpromotionPreference(this, PrefConst.PREFKEY_Promotion, promotionmodels);
+
                 JSONArray cars = response.getJSONArray("cars");
                 ArrayList<CarModel> carModels = new ArrayList<>();
                 for(int i=0; i<cars.length(); i++){
@@ -245,9 +261,21 @@ public class LoginActivity extends BaseActivity {
                     packages2.package_name = onepackage.getString("package_name");
                     packages2.package_time = onepackage.getString("package_time");
                     packages2.package_description = onepackage.getString("package_description");
-                    packages2.package_available_for_home = onepackage.getInt("package_available_for_home");
-                    packages2.package_price = onepackage.getString("package_price");
-                    packages2.package_price_home = onepackage.getString("package_price_home");
+                    packages2.package_available_for_home = onepackage.getString("package_available_for_home");
+
+                    JSONArray prices_json = onepackage.getJSONArray("package_prices");
+                    ArrayList<PackagePricesModel> packagePricesModels = new ArrayList<>();
+                    for(int j=0; j< prices_json.length(); j++){
+                        JSONObject oneprice_json = prices_json.getJSONObject(j);
+                        PackagePricesModel packagePricesModel = new PackagePricesModel();
+                        packagePricesModel.package_price_id = oneprice_json.getInt("package_price_id");
+                        packagePricesModel.car_id = oneprice_json.getInt("car_id");
+                        packagePricesModel.package_id = oneprice_json.getInt("package_id");
+                        packagePricesModel.price = oneprice_json.getString("price");
+                        packagePricesModel.price_home = oneprice_json.getString("price_home");
+                        packagePricesModels.add(packagePricesModel);
+                    }
+                    packages2.packagePricesModels = packagePricesModels;
                     packages1.add(packages2);
                 }
                 Preference.getInstance().putSharedpackagesPreference(LoginActivity.this, PrefConst.PREFKEY_PACKAGES, packages1);

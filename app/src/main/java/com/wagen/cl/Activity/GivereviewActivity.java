@@ -118,7 +118,7 @@ public class GivereviewActivity extends BaseActivity {
         for(int i=0; i<packages.size(); i++){
             if(orderModel.package_id == packages.get(i).package_id){
                 txv_package.setText(packages.get(i).package_name);
-                txv_package_price.setText(chagnenumberformat( packages.get(i).package_price)+"CLP");
+               // txv_package_price.setText(chagnenumberformat( packages.get(i).package_price)+"CLP");
                 txv_package_durationtime.setText(packages.get(i).package_time+"MINS");
                 txv_package_descripton.setText(packages.get(i).package_description.replaceAll("_","\n"));
             }
