@@ -111,7 +111,7 @@ public class GivereviewActivity extends BaseActivity {
         for(int i=0; i<carModels.size(); i++){
             if(orderModel.car_id == carModels.get(i).car_id){
                 txv_1.setText(carModels.get(i).car_name);
-                Glide.with(this).load(Uri.parse(carModels.get(0).car_photo)).into(imv_1);
+                Glide.with(this).load(Uri.parse(carModels.get(i).car_photo)).into(imv_1);
             }
         }
 

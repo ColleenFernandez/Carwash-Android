@@ -30,14 +30,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".Activity.MembershipActivity" />
-        <activity android:name=".Activity.GivereviewActivity" />
-        <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.MybookingActivity" />
-        <activity android:name=".Activity.FullpromotionActivity" />
-        <activity android:name=".Activity.OrderdetailActivity" />
-        <activity android:name=".Activity.Forgot2Activity" />
-        <activity android:name=".Activity.ForgotActivity" />
+        <activity android:name=".Activity.MembershipActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.GivereviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.MybookingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.FullpromotionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.OrderdetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Forgot2Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ForgotActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name=".Utils.GenericFileProvider"
@@ -49,10 +57,14 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Activity.Order1Activity" />
-        <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.Order1Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +72,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:configChanges="orientation|screenSize"
