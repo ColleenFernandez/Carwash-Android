@@ -171,6 +171,7 @@ public class Step4Fragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("city", Constants.orderModel.city);
                 params.put("date", date);
+                params.put("order_type", String.valueOf(Constants.orderModel.order_type));
                 return params;
             }
         };

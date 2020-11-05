@@ -118,9 +118,16 @@ public class GivereviewActivity extends BaseActivity {
         for(int i=0; i<packages.size(); i++){
             if(orderModel.package_id == packages.get(i).package_id){
                 txv_package.setText(packages.get(i).package_name);
-               // txv_package_price.setText(chagnenumberformat( packages.get(i).package_price)+"CLP");
                 txv_package_durationtime.setText(packages.get(i).package_time+"MINS");
                 txv_package_descripton.setText(packages.get(i).package_description.replaceAll("_","\n"));
+                for(int i1 = 0; i1<packages.get(i).packagePricesModels.size(); i1++){
+                    if(packages.get(i).packagePricesModels.get(i1).car_id == orderModel.car_id){
+                        if(orderModel.order_type == 0)
+                            txv_package_price.setText(chagnenumberformat(packages.get(i).packagePricesModels.get(i1).price)+"CLP");
+                        else if(orderModel.order_type == 1)
+                            txv_package_price.setText(chagnenumberformat(packages.get(i).packagePricesModels.get(i1).price_home)+"CLP");
+                    }
+                }
             }
         }
 

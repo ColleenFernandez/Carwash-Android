@@ -209,6 +209,14 @@ public class SignupActivity extends BaseActivity {
 
                 Preference.getInstance().put(this, PrefConst.PREFKEY_ID,String.valueOf(userModel.user_id));
 
+                JSONArray workshop = response.getJSONArray("workshop");
+                ArrayList<String>workship_array = new ArrayList<>();
+                for(int i=0; i<workshop.length(); i++){
+                    JSONObject oneshop = workshop.getJSONObject(i);
+
+                    workship_array.add(oneshop.getString("name"));
+                }
+                Preference.getInstance().putShared_cities_Preference(SignupActivity.this, PrefConst.PREFKEY_WORKSHOP, workship_array);
 
                 JSONArray cars = response.getJSONArray("cars");
                 ArrayList<CarModel> carModels = new ArrayList<>();

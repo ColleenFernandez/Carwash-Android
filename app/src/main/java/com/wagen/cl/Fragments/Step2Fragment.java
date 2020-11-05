@@ -123,6 +123,7 @@ public class Step2Fragment extends Fragment {
         buttontextviews = new ArrayList<>();
         for(int i=0; i<packages.size(); i++){
             Packages packageitem = packages.get(i);
+            packageitem.selected_status = false;
             if(Constants.orderModel.package_id == packageitem.package_id) packageitem.selected_status = true;
             for(int j=0; j<packageitem.packagePricesModels.size(); j++){
                 if(packageitem.packagePricesModels.get(j).car_id == Constants.orderModel.car_id){
@@ -146,6 +147,14 @@ public class Step2Fragment extends Fragment {
             buttonlayouts.add(lyt_butto);
             buttontextviews.add(txv_button);
             LinearLayout lyt_item =(LinearLayout)child.findViewById(R.id.lyt_item);
+
+            if(filteredpackages.get(i).selected_status == true){
+                lyt_butto.setBackgroundResource(R.drawable.package_select);
+                txv_button.setTextColor(getResources().getColor(R.color.white));
+            }else{
+                lyt_butto.setBackgroundResource(R.drawable.package_unselect);
+                txv_button.setTextColor(getResources().getColor(R.color.black));
+            }
 
             txvtitle.setText(filteredpackages.get(i).package_name);
             txvprice.setText("$"+ numberformating(filteredpackages.get(i).selected_car_price));
@@ -198,9 +207,9 @@ public class Step2Fragment extends Fragment {
     }
 
 
-    public static void selectcitydialog(String shopaddress, ArrayList<String> cities){
+    public static void selectcitydialog(ArrayList<String> shopaddress, ArrayList<String> cities){
         LinearLayout lyt_address;
-        TextView txvtitle, txvshopaddress, txvnext;
+        TextView txvtitle,  txvnext;
         MaterialSpinner spinner;
 
         EditText etx_address;
@@ -211,7 +220,7 @@ public class Step2Fragment extends Fragment {
         settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(order1Activity.getResources().getColor(R.color.transparent)));
         lyt_address=(LinearLayout) settingdialog.findViewById(R.id.lyt_address);
         txvtitle=(TextView) settingdialog.findViewById(R.id.txv_title);
-        txvshopaddress=(TextView) settingdialog.findViewById(R.id.txv_shopaddress);
+
         txvnext =(TextView)settingdialog.findViewById(R.id.goto_next);
         spinner = (MaterialSpinner) settingdialog.findViewById(R.id.spinner);
         etx_address=(EditText)settingdialog.findViewById(R.id.etx_address);
@@ -220,28 +229,29 @@ public class Step2Fragment extends Fragment {
 
         if(Constants.orderModel.order_type == 0){
             txvtitle.setText(order1Activity.getResources().getString(R.string.shopaddressis));
-            lyt_address.setVisibility(View.GONE);
-            txvshopaddress.setVisibility(View.VISIBLE);
-            txvshopaddress.setText(shopaddress);
+            etx_address.setVisibility(View.GONE);
         }else{
             lyt_address.setVisibility(View.VISIBLE);
-            txvshopaddress.setVisibility(View.GONE);
             txvtitle.setText(order1Activity.getResources().getString(R.string.inputaddress));
+        }
 
+        if(Constants.orderModel.order_type == 0) spinner.setItems(shopaddress);
+        else spinner.setItems(cities);
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
-            spinner.setItems(cities);
-            spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
 
-                @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+            }
+        });
 
-                }
-            });
-
-            if(Constants.orderModel.city.length()>0){
+        if(Constants.orderModel.city.length()>0){
+            if(Constants.orderModel.order_type == 0)spinner.setSelectedIndex(selectedcitypostion(shopaddress));
+            else {
                 spinner.setSelectedIndex(selectedcitypostion(cities));
                 etx_address.setText(Constants.orderModel.address);
             }
         }
+
 
         txvnext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,6 +263,8 @@ public class Step2Fragment extends Fragment {
                 if(Constants.orderModel.order_type == 1){
                     Constants.orderModel.city =cities.get(spinner.getSelectedIndex());
                     Constants.orderModel.address = etx_address.getText().toString();
+                }else{
+                    Constants.orderModel.city =shopaddress.get(spinner.getSelectedIndex());
                 }
                 settingdialog.dismiss();
                 order1Activity.gotonextstep(2);
@@ -292,7 +304,8 @@ public class Step2Fragment extends Fragment {
                         Constants.orderModel.package_price = selectedpackagevalues[1];
                         Constants.orderModel.order_type = filtertype;
                         ArrayList<String> cities = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_CITIES);
-                        String workshop = Preference.getInstance().getValue(order1Activity, "workshop","");
+                        ArrayList<String> workshop = Preference.getInstance().getShared_cities_Preference(order1Activity, PrefConst.PREFKEY_WORKSHOP);
+
                         selectcitydialog(workshop, cities);
                     }
 

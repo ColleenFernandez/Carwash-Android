@@ -257,11 +257,10 @@ public class OrderdetailActivity extends BaseActivity {
         params.put("service_ids", getserviceids()[0]);
         params.put("service_qty", getserviceids()[1]);
         params.put("order_type", String.valueOf(Constants.orderModel.order_type));  // home or worshop
+        params.put("order_city", Constants.orderModel.city);
         if(Constants.orderModel.order_type == 0){
-            params.put("order_city", "");
             params.put("order_address", "");
         }else{
-            params.put("order_city", Constants.orderModel.city);
             params.put("order_address", Constants.orderModel.address);
         }
         params.put("payment_method", String.valueOf(paymentmethod));

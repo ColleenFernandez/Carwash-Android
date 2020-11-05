@@ -202,7 +202,15 @@ public class LoginActivity extends BaseActivity {
                     Preference.getInstance().put(this, PrefConst.PREFKEY_ACCOUNTTYPE,String.valueOf(userModel.account_type));
                 }
 
-                Preference.getInstance().put(this, "workshop", response.getJSONObject("workshop").getString("name"));
+                JSONArray workshop = response.getJSONArray("workshop");
+                ArrayList<String>workship_array = new ArrayList<>();
+                for(int i=0; i<workshop.length(); i++){
+                    JSONObject oneshop = workshop.getJSONObject(i);
+
+                    workship_array.add(oneshop.getString("name"));
+                }
+                Preference.getInstance().putShared_cities_Preference(LoginActivity.this, PrefConst.PREFKEY_WORKSHOP, workship_array);
+
 
                 JSONArray promotionsjson = response.getJSONArray("promotions");
                 ArrayList<Promotionmodel> promotionmodels = new ArrayList<>();

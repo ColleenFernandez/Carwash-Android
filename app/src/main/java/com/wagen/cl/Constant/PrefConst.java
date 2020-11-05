@@ -15,6 +15,7 @@ public class PrefConst {
     public static final String PREFKEY_PACKAGES = "packages";
     public static final String PREFKEY_Promotion = "promotion";
     public static final String PREFKEY_CITIES = "cities";
+    public static final String PREFKEY_WORKSHOP = "workshop";
     public static final String PREFKEY_MEMBERSHIP = "membership";
     public static final String PREFKEY_COUPON = "couponcodes";
 
