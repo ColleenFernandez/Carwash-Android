@@ -2,7 +2,7 @@
     <string name="app_name">Wagen</string>
     <!--<string name="default_web_client_id" translatable="false">225663519311-7offsnhnv29hieuoufoskas411bebuiv.apps.googleusercontent.com</string>-->
     <!--<string name="default_web_client_id" translatable="false">910163104621-jo00l2rc7ckohrkktc4omb4qilt2fk8v.apps.googleusercontent.com</string>-->
-    <string name="facebook_app_id">3487337748040586</string>
+    <string name="facebook_app_id">388983028957900</string>
     <string name="fb_login_protocol_scheme">fb3487337748040586</string>
 
     <string name="somethingwentwrong">Something went wrong</string>
@@ -28,6 +28,7 @@
     <string name="aboutcompay">About Company</string>
     <string name="order1title">Select Car Type</string>
     <string name="bookingsumary">Resumen de Reserva</string>
+    <string name="processingpayment">Processing Payment</string>
     <string name="verifycode">Verify Code</string>
     <string name="settings">Settings</string>
     <string name="noavailabletime">There is no avaialble time for this date</string>
@@ -75,6 +76,8 @@
     <string name="orderavailable">Order Avaialble : </string>
     <string name="shopaddressis">Select Workshop Address</string>
     <string name="enteryouraddress">Input Address</string>
+    <string name="paymentsuccess">Payment success</string>
+    <string name="paymentfailed">Payment failed</string>
 
     <string name="passupdatesuccess">Password updated successfully, please try login</string>
     <string name="purchasesuccess">Membresía purchased successfully</string>

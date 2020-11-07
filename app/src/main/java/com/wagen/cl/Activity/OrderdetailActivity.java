@@ -74,7 +74,8 @@ public class OrderdetailActivity extends BaseActivity {
         });
 
         if(Constants.orderModel.order_type == 0){
-            txv_address.setText(Preference.getInstance().getValue(this, "workshop", ""));
+            //txv_address.setText(Preference.getInstance().getValue(this, "workshop", ""));
+            txv_address.setText(Constants.orderModel.city);
         }else{
             txv_address.setText(Constants.orderModel.address+", "+Constants.orderModel.city);
         }
@@ -83,6 +84,18 @@ public class OrderdetailActivity extends BaseActivity {
         txv_duration.setText(getformatedduration()+"MINS");
         txv_price.setText(getformatedtotalprice()+"CLP");
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Constants.frompagestatus_formembership == 1){ // if from membership page and payment == success
+            createneworder(1);
+        }else if(Constants.frompagestatus_formembership == 2){
+            Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
+        }
+        Constants.frompagestatus_formembership = 0;
+    }
+
 
     public String setdateformat(String date){
         Log.d("date==", date);
@@ -200,7 +213,32 @@ public class OrderdetailActivity extends BaseActivity {
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createneworder(1);
+                String totalprice = gettotalprice();
+                String paidprice = totalprice;
+                int discountvalue = 0;
+                int couponid = -1;
+                if(etx_coupon.getText().toString().trim().length()>0){
+                    int[] checkstatus = checkcouponexists(etx_coupon.getText().toString().trim());
+                    if(checkstatus[0] == -1){
+                        Toast.makeText(OrderdetailActivity.this, getString(R.string.entercorrectcouponcode), Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        couponid = checkstatus[0];
+                        discountvalue = checkstatus[1];
+                    }
+                }
+                if(couponid != -1){
+                    paidprice = String.valueOf((int)Integer.parseInt(totalprice)*(100 - discountvalue)/100);
+                }
+
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
+                Constants.orderid = Constants.userModel.first_name+ts;
+                Constants.orderamount = paidprice;
+                Intent intent = new Intent(OrderdetailActivity.this, PaymentActivity.class);
+                startActivity(intent);
+
+
             }
         });
 

@@ -317,7 +317,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 Preference.getInstance().putSharedcouponPreference(LoginActivity.this, PrefConst.PREFKEY_COUPON, couponcodes1);
 
-                if( userModel.account_type== 1) socialLogout();
+               // if( userModel.account_type== 1) socialLogout();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

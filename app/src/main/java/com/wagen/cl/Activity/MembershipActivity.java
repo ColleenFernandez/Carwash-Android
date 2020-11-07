@@ -36,6 +36,7 @@ public class MembershipActivity extends BaseActivity {
     ArrayList<MembershipModel> membershipModels = new ArrayList<>();
     MembershipAdapter membershipAdapter;
     boolean purchase_status = false;
+    MembershipModel selectedmemberhsipmodel = new MembershipModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +47,6 @@ public class MembershipActivity extends BaseActivity {
 
 
         for(int i=0; i< membershipModels.size(); i++){
-            /*MembershipModel membershipModel = new MembershipModel();
-            membershipModel.id = i;
-            membershipModel.title = "Schedule "+(i+1)+" service per month";
-            membershipModel.price = String.valueOf((i+1)*1000);
-            membershipModel.renew_date = "2020-10-18";
-            membershipModel.remaining_order = 2;
-            if(i == 0) membershipModel.purchase_status = true;
-            else  membershipModel.purchase_status = false;
-            membershipModel.max_order_per_month = i+2;
-            membershipModels.add(membershipModel);*/
-
             if(membershipModels.get(i).id == Constants.userModel.membership_id && Constants.userModel.membership_count>0){
                 membershipModels.get(i).remaining_order = Constants.userModel.membership_count;
                 membershipModels.get(i).renew_date = Constants.userModel.membership_last_renew;
@@ -77,6 +67,21 @@ public class MembershipActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(Constants.frompagestatus_formembership == 1){ // if from membership page and payment == success
+            Map<String, String> params = new HashMap<>();
+            params.put("membershipid", String.valueOf(selectedmemberhsipmodel.id));
+            params.put("userid", String.valueOf(Constants.userModel.user_id));
+            params.put("memership_count", String.valueOf(selectedmemberhsipmodel.max_order_per_month));
+            call_postApi(Constants.BASE_URL, "purchasemembership", params);
+        }else if(Constants.frompagestatus_formembership == 2){
+            Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
+        }
+        Constants.frompagestatus_formembership = 0;
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -85,11 +90,15 @@ public class MembershipActivity extends BaseActivity {
 
     public void purchasemembership(MembershipModel trip1, int position) {
         memberhsipposition = position;
-        Map<String, String> params = new HashMap<>();
-        params.put("membershipid", String.valueOf(trip1.id));
-        params.put("userid", String.valueOf(Constants.userModel.user_id));
-        params.put("memership_count", String.valueOf(trip1.max_order_per_month));
-        call_postApi(Constants.BASE_URL, "purchasemembership", params);
+        selectedmemberhsipmodel = trip1;
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+        Constants.orderid = Constants.userModel.first_name+ts;
+        Constants.orderamount = trip1.price;
+        Intent intent = new Intent(this, PaymentActivity.class);
+        startActivity(intent);
+
+
     }
     public void returnapireponse(JSONObject response, String method) {
         try {
