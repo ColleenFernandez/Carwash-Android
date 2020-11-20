@@ -5,7 +5,7 @@
     <string name="facebook_app_id">388983028957900</string>
     <string name="fb_login_protocol_scheme">fb3487337748040586</string>
 
-    <string name="somethingwentwrong">Something went wrong</string>
+    <!--<string name="somethingwentwrong">Something went wrong</string>
     <string name="take_photo">Take Photo</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="cancel">Cancel</string>
@@ -65,7 +65,7 @@
     <string name="apointtime">Appointment Time : </string>
     <string name="duration">Duración</string>
     <string name="totalprice">Precio Total</string>
-    <string name="viewreview">Give Review</string>
+    <string name="viewreview">Evaluar</string>
     <string name="purchasemembership">Plan mensual</string>
     <string name="termsandcondition">Terms &amp; Conditions</string>
     <string name="privacypolicy">Privacy Policy</string>
@@ -81,9 +81,101 @@
 
     <string name="passupdatesuccess">Password updated successfully, please try login</string>
     <string name="purchasesuccess">Membresía purchased successfully</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <array name="steps">
+        <item>Paso 1</item>
+        <item>Paso 2</item>
+        <item>Paso 3</item>
+        <item>Paso 4</item>
+    </array>
+    <array name="steptitles">
+        <item>Select Vehicle Type</item>
+        <item>Packs de Servicios</item>
+        <item>Servicios adicionales</item>
+        <item>Fecha y Hora</item>
+    </array>-->
+
+
+    <string name="somethingwentwrong">Algo salió mal</string>
+    <string name="take_photo">Toma un Foto</string>
+    <string name="choose_from_gallery">Elegir desde la Galería</string>
+    <string name="cancel">Cancel</string>
+    <string name="photo_upload_is_failed">Foto cargada con error</string>
+    <string name="enter_firstname">Por favor ingresa tu nombre</string>
+    <string name="enter_lastname">Por favor ingresa tu apellido</string>
+    <string name="enterconfirmpass">Por favor confirma tu contraseña</string>
+    <string name="entercorrectpass">Por favor ingresa la contraseña correcta</string>
+    <string name="enter_email">Por favor ingresa tu correo</string>
+    <string name="enter_code">Por favor ingresa tu código de verificación</string>
+    <string name="enter_corret_code">Por favor ingresa el código de verificación correcto</string>
+    <string name="enter_password">Por favor ingresa tu contraseña</string>
+    <string name="enter_verifycode">Por favor ingresa el código de verificación</string>
+    <string name="enter_verifycorrectcode">Por favor ingresa el código de verificación correcto</string>
+    <string name="signuptitle">Ingresar</string>
+    <string name="forgottitle">Olvidé mi contraseña</string>
+    <string name="backtologin">Volver al inicio</string>
+    <string name="hometitle">Inicio</string>
+    <string name="editproifle">Editar Perfil</string>
+    <string name="aboutcompay">Acerca de nosotros</string>
+    <string name="order1title">Selecciona un Tipo de Vehículo</string>
+    <string name="bookingsumary">Resumen de Reserva</string>
+    <string name="processingpayment">Procesando el Pago</string>
+    <string name="verifycode">Código de Verificación</string>
+    <string name="settings">Configuración</string>
+    <string name="noavailabletime">No hay horario disponible en este día</string>
+    <string name="selectatime">Por favor selecciona una hora</string>
+    <string name="sentreview">Gracias por tu evaluación, esto nos ayuda a mejorar cada día!</string>
+    <string name="back">Regresar</string>
+    <string name="entercorrectcouponcode">Por favor ingresa el cupón de descuento</string>
+    <string name="pendingrevieworders">Lavados pendientes de revisión</string>
+    <string name="givereview">Evaluar</string>
+    <string name="membership">Membresía</string>
+    <string name="purchasenow">Compra Ahora</string>
+    <string name="inputaddress">Ingresar Dirección</string>
+    <string name="inputphonenumber">Ingresar Celular</string>
+    <string name="next">Siguiente</string>
+    <string name="save">Guardar</string>
+    <string name="placeorder">Confirmar Lavado</string>
+    <string name="quantity">Cantidad</string>
+    <string name="selectmethod">Seleccionar Método de Pago</string>
+    <string name="bymembership">Con mi membresía</string>
+    <string name="paynow">Pagar Ahora</string>
+    <string name="noorderitem">No tienes otros lavados por revisar</string>
+    <string name="enterphone">Por favor ingresa tu celular</string>
+    <string name="sendverifycode">Enviar Código de Verificación</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cannotselectolddate">No puedes seleccionar una fecha anterior a la actual</string>
+    <string name="thanksfororder">Gracias por tu reserva y confiar en nosotros</string>
+    <string name="profilechagned">Los cambios en tu perfil fueron realizados</string>
+
+    <string name="selectcar">Por favor selecciona un auto</string>
+    <string name="selectpackage">Por favor selecciona un Servicio</string>
+    <string name="yourappointmentdate">Fecha de Reserva</string>
+    <string name="yourappointmenttime">Hora de tu Reserva</string>
+    <string name="appointdate">Fecha de Reserva : </string>
+    <string name="apointtime">Hora de Reserva : </string>
+    <string name="duration">Duración</string>
+    <string name="totalprice">Precio Total</string>
+    <string name="viewreview">Evaluar</string>
+    <string name="purchasemembership">Plan mensual</string>
+    <string name="termsandcondition">Términos y Condiciones</string>
+    <string name="privacypolicy">Política de Privacidad</string>
+    <string name="aboutus">Acerca de nosotros</string>
+    <string name="logout">Salir</string>
+    <string name="price">Precio : </string>
+    <string name="purchasedat">Pagado : </string>
+    <string name="orderavailable">Reserva Disponible : </string>
+    <string name="shopaddressis">Seleccionar un Lugar de Lavado</string>
+    <string name="enteryouraddress">Ingresar Dirección</string>
+    <string name="paymentsuccess">Pago Exitoso</string>
+    <string name="paymentfailed">Pago Fallido</string>
+
+    <string name="passupdatesuccess">Contraseña actualizada exitosamente, por favor ingresa a tu cuenta</string>
+    <string name="purchasesuccess">Membresía adquirida exitosamente</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hola, el espacio está en blanco</string>
+    <array name="Pasos">
         <item>Paso 1</item>
         <item>Paso 2</item>
         <item>Paso 3</item>

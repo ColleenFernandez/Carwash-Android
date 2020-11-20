@@ -30,8 +30,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".Activity.PaymentActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activity.TermsActivity"></activity>
+        <activity
+            android:name=".Activity.PaymentActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.MembershipActivity"
             android:screenOrientation="portrait" />

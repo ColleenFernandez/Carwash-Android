@@ -13,8 +13,8 @@ public class Constants {
     public static final String BASE_URL = "https://wagen.cl/admin/index.php/Api/";
     public static final String web_baseurl = "https://wagen.cl/admin/index.php/";
 
-    /*public static final String BASE_URL = "http://192.168.0.33:8080/CarwashBackend/index.php/Api/";
-    public static final String web_baseurl = "http://192.168.0.33:8080/CarwashBackend/index.php/";*/
+    /*public static final String BASE_URL = "http://192.168.101.33:8080/CarwashBackend/index.php/Api/";
+    public static final String web_baseurl = "http://192.168.101.33:8080/CarwashBackend/index.php/";*/
 
     public static final String webviewurl = web_baseurl+"Payment";
 
