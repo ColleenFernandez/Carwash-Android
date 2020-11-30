@@ -26,6 +26,7 @@ import com.wagen.cl.Model.CarModel;
 import com.wagen.cl.Model.Coupon;
 import com.wagen.cl.Model.MembershipModel;
 import com.wagen.cl.Model.OrderModel;
+import com.wagen.cl.Model.PackagePricesModel;
 import com.wagen.cl.Model.Packages;
 import com.wagen.cl.Model.Service;
 import com.wagen.cl.Model.UserModel;
@@ -144,6 +145,12 @@ public class OrderdetailActivity extends BaseActivity {
         int totalprice = 0;
         for(int i = 0; i<packages.size(); i++){
             if(Constants.orderModel.package_id == packages.get(i).package_id){
+                ArrayList<PackagePricesModel> packagePricesModels = packages.get(i).packagePricesModels;
+                for(int j=0; j< packagePricesModels.size(); j++){
+                    if(packagePricesModels.get(j).car_id == Constants.orderModel.car_id){
+                        totalprice+=Integer.parseInt(packagePricesModels.get(j).price);
+                    }
+                }
                // totalprice+= Integer.parseInt(packages.get(i).package_price);
             }
         }

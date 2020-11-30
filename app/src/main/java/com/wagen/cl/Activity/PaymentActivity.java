@@ -36,6 +36,8 @@ public class PaymentActivity extends AppCompatActivity {
         progDailog.setCancelable(false);
         String url = Constants.webviewurl+"?orderid="+Constants.orderid+"&amount="+Constants.orderamount;
 
+        Log.d("weburl==", url);
+
         initWebView();
 
         webView.loadUrl(url);
