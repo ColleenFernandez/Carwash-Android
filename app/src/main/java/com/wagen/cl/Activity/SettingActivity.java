@@ -11,6 +11,7 @@ import com.wagen.cl.Constant.PrefConst;
 import com.wagen.cl.Constant.Preference;
 import com.wagen.cl.R;
 import com.wagen.cl.Utils.BaseActivity;
+import com.wagen.cl.Utils.TouchImageView;
 
 public class SettingActivity extends BaseActivity {
 
@@ -48,5 +49,20 @@ public class SettingActivity extends BaseActivity {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
+    }
+
+    public void gotoprivicy(View view) {
+        String url = "https://wagen.cl/admin/Privacy_Policy.pdf";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    public void showservice(View view) {
+        TouchImageView img = new TouchImageView(this);
+        img.setBackgroundColor(getResources().getColor(R.color.black));
+        img.setImageResource(R.drawable.aboutservice);
+        img.setMaxZoom(4f);
+        setContentView(img);
     }
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyt_bottomsheet"
+    android:orientation="vertical"
+    android:background="@drawable/aler_stroke_rect"
+    app:behavior_hideable="true"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_gravity="center"
+    app:layout_constrainedHeight="true"
+    android:padding="10dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="¿Qué es WAGEN?"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/txv_title"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/close"
+            android:layout_gravity="right"
+            android:id="@+id/imv_close"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:id="@+id/lyt_address">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="•	Somos una empresa que ofrece servicio premium de lavado a mano de autos a domicilio ubicados en el sector oriente de Santiago."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:text="•	Constantemente generamos contenido informativo que le entregue consejos a nuestros clientes y/o audiencia con respecto al cuidado y mantención de sus vehículos."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:text="•	Utilizamos productos ecológicos siempre preocupándonos por el cuidado de nuestro entorno."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:text="•	Buscamos la excelencia por sobre todo."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:text="•	Estamos ubicados en José Alcalde Délano 10.581, Lo Barnechea."/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

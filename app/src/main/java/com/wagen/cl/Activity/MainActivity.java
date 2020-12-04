@@ -6,11 +6,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.lwj.widget.viewpagerindicator.ViewPagerIndicator;
 import com.wagen.cl.Constant.Constants;
 import com.wagen.cl.Constant.PrefConst;
@@ -115,6 +124,20 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotodetail(View view) {
+        Dialog settingdialog = new Dialog(this);
+        settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        settingdialog.setContentView(R.layout.quees_dialog);
+        settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+        ImageView imv_close =(ImageView)settingdialog.findViewById(R.id.imv_close);
+        imv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingdialog.dismiss();
+            }
+        });
+
+        settingdialog.show();
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
