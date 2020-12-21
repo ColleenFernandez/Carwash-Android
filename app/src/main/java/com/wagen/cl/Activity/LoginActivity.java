@@ -388,10 +388,14 @@ public class LoginActivity extends BaseActivity {
                                 Log.d("Login Token!!!", loginResult.getAccessToken().getToken());
 
                                 try {
-                                    String email = object.getString("email");
+                                    if(object.has("email")){
+                                        String email = object.getString("email");
 
-                                    Log.d("FB email: ", email);
-                                    processSocial(email,"2");
+                                        Log.d("FB email: ", email);
+                                        processSocial(email,"2");
+                                    }else{
+                                        Toast.makeText(LoginActivity.this, "We are sorry, we can't get your email address. Please try another login option", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

@@ -56,7 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 Log.d("WebView", "your current url when webpage loading.. finish" + url);
                 //super.onPageFinished(view, url);
-                if(url.contains("Paymentfinish")){
+                if(url.contains("Paymentend")){
                     webView.evaluateJavascript("javascript:sendmessage();", new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String s) {

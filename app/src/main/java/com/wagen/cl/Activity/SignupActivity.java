@@ -357,12 +357,17 @@ public class SignupActivity extends BaseActivity {
                                 Log.d("Login Token!!!", loginResult.getAccessToken().getToken());
 
                                 try {
-                                    String email = object.getString("email");
-                                    String first_name = object.getString("first_name");
-                                    String last_name = object.getString("last_name");
-                                    String picture = object.getString("picture");
-                                    Log.d("FB email: ", email);
-                                    processSocial(email, first_name, last_name, picture,"2");
+                                    if(object.has("email")){
+                                        String email = object.getString("email");
+                                        String first_name = object.getString("first_name");
+                                        String last_name = object.getString("last_name");
+                                        String picture = object.getString("picture");
+                                        Log.d("FB email: ", email);
+                                        processSocial(email, first_name, last_name, picture,"2");
+                                    }else{
+                                        Toast.makeText(SignupActivity.this, "We are sorry, we can't get your email address. Please try another signup option", Toast.LENGTH_SHORT).show();
+                                    }
+
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
