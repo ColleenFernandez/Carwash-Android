@@ -146,7 +146,8 @@
     <string name="sendverifycode">Enviar Código de Verificación</string>
     <string name="confirm">Confirmar</string>
     <string name="cannotselectolddate">No puedes seleccionar una fecha anterior a la actual</string>
-    <string name="thanksfororder">Gracias por tu reserva y confiar en nosotros</string>
+    <!--<string name="thanksfororder">Gracias por tu reserva y confiar en nosotros</string>-->
+    <string name="thanksfororder">Gracias por confiar en Wagen. Preparate para el mejor lavado!</string>
     <string name="profilechagned">Los cambios en tu perfil fueron realizados</string>
 
     <string name="selectcar">Por favor selecciona un auto</string>
