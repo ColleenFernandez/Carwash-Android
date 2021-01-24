@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wagen</string>
+    <string name="app_name">Wagen - Lavados de Auto a Domicilio</string>
     <!--<string name="default_web_client_id" translatable="false">225663519311-7offsnhnv29hieuoufoskas411bebuiv.apps.googleusercontent.com</string>-->
     <!--<string name="default_web_client_id" translatable="false">910163104621-jo00l2rc7ckohrkktc4omb4qilt2fk8v.apps.googleusercontent.com</string>-->
     <string name="facebook_app_id">388983028957900</string>
