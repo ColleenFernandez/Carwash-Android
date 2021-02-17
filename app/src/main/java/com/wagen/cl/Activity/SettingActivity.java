@@ -45,14 +45,14 @@ public class SettingActivity extends BaseActivity {
     }
 
     public void gototerms(View view) {
-        String url = "https://wagen.cl/admin/terms.pdf";
+        String url = "https://servicioswagen.cl/admin/terms.pdf";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
 
     public void gotoprivicy(View view) {
-        String url = "https://wagen.cl/admin/Privacy_Policy.pdf";
+        String url = "https://servicioswagen.cl/admin/Privacy_Policy.pdf";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

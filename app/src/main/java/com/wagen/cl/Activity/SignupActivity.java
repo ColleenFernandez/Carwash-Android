@@ -358,12 +358,30 @@ public class SignupActivity extends BaseActivity {
 
                                 try {
                                     if(object.has("email")){
-                                        String email = object.getString("email");
+                                        /*String email = object.getString("email");
                                         String first_name = object.getString("first_name");
                                         String last_name = object.getString("last_name");
                                         String picture = object.getString("picture");
                                         Log.d("FB email: ", email);
-                                        processSocial(email, first_name, last_name, picture,"2");
+                                        processSocial(email, first_name, last_name, picture,"2");*/
+
+                                        String email = "";
+                                        if(object.getString("email")!= null) email = object.getString("email");
+                                        String first_name = "";
+                                        if(object.getString("first_name")!= null) first_name=object.getString("first_name");
+                                        String last_name = "";
+                                        if(object.getString("last_name") != null) last_name = object.getString("last_name");
+                                        String picture = "";
+                                        if(object.getString("picture") != null) picture =object.getString("picture");
+
+                                        if(email.length()==0) {
+                                            Toast.makeText(SignupActivity.this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            Log.d("FB email: ", email);
+                                            processSocial(email, first_name, last_name, picture,"2");
+                                        }
+
                                     }else{
                                         Toast.makeText(SignupActivity.this, "We are sorry, we can't get your email address. Please try another signup option", Toast.LENGTH_SHORT).show();
                                     }
@@ -424,12 +442,29 @@ public class SignupActivity extends BaseActivity {
     private void updateUI(GoogleSignInAccount account){
         if(account != null){
             String name = account.getDisplayName();
+            /*
             String firstname = account.getGivenName();
             String lastname = account.getFamilyName();
             String photourl = String.valueOf(account.getPhotoUrl());
             String personEmail = account.getEmail();
             Log.d("name/email===>", name + "/" + personEmail);
-            processSocial(personEmail, firstname, lastname, photourl,"1");
+            processSocial(personEmail, firstname, lastname, photourl,"1");*/
+
+            String firstname = "";
+            if(account.getGivenName() != null) firstname = account.getGivenName();
+            String lastname = "";
+            if(account.getFamilyName() != null) lastname = account.getFamilyName();
+            String photourl = "";
+            if(account.getPhotoUrl() != null) photourl = String.valueOf(account.getPhotoUrl());
+
+            String personEmail = "";
+            if(account.getEmail() != null) personEmail = account.getEmail();
+            if(personEmail.length()==0){
+                Toast.makeText(this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
+            }else{
+                Log.d("name/email===>", name + "/" + personEmail);
+                processSocial(personEmail, firstname, lastname, photourl,"1");
+            }
         }
     }
 

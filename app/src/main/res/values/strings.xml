@@ -171,6 +171,7 @@
     <string name="enteryouraddress">Ingresar Dirección</string>
     <string name="paymentsuccess">Pago Exitoso</string>
     <string name="paymentfailed">Pago Fallido</string>
+    <string name="cannotgetaddress">We are unable to get your email address.</string>
 
     <string name="passupdatesuccess">Contraseña actualizada exitosamente, por favor ingresa a tu cuenta</string>
     <string name="purchasesuccess">Membresía adquirida exitosamente</string>

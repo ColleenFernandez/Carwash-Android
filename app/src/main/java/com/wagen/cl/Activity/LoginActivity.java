@@ -90,19 +90,13 @@ public class LoginActivity extends BaseActivity {
 
         checkAllPermission();
 
-        String email = Preference.getInstance().getValue(this, PrefConst.PREFKEY_USEREMAIL,"");
-        if(email.length()>0){
-            etxemail.setText( Preference.getInstance().getValue(this, PrefConst.PREFKEY_USEREMAIL,""));
-            etxpassword.setText( Preference.getInstance().getValue(this, PrefConst.PREFKEY_USERPWD,""));
-            cb_remember.setChecked(true);
-            calllogin(Preference.getInstance().getValue(this, PrefConst.PREFKEY_ACCOUNTTYPE,""));
-        }
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("com.app.imageagent", PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("com.wagen.cl", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
@@ -117,7 +111,7 @@ public class LoginActivity extends BaseActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                //.requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -196,7 +190,7 @@ public class LoginActivity extends BaseActivity {
                 Constants.userModel = userModel;
 
                 Preference.getInstance().put(this, PrefConst.PREFKEY_ID,String.valueOf(userModel.user_id));
-                if(cb_remember.isChecked()){
+                if(cb_remember.isChecked() || userModel.account_type != 0){
                     Preference.getInstance().put(this, PrefConst.PREFKEY_USEREMAIL,userModel.email);
                     Preference.getInstance().put(this, PrefConst.PREFKEY_USERPWD,userModel.password);
                     Preference.getInstance().put(this, PrefConst.PREFKEY_ACCOUNTTYPE,String.valueOf(userModel.account_type));
@@ -389,10 +383,22 @@ public class LoginActivity extends BaseActivity {
 
                                 try {
                                     if(object.has("email")){
-                                        String email = object.getString("email");
+                                        String email = "";
+                                        if(object.getString("email")!= null) email = object.getString("email");
+                                        String first_name = "";
+                                        if(object.getString("first_name")!= null) first_name=object.getString("first_name");
+                                        String last_name = "";
+                                        if(object.getString("last_name") != null) last_name = object.getString("last_name");
+                                        String picture = "";
+                                        if(object.getString("picture") != null) picture =object.getString("picture");
 
-                                        Log.d("FB email: ", email);
-                                        processSocial(email,"2");
+                                        if(email.length()==0) {
+                                            Toast.makeText(LoginActivity.this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            Log.d("FB email: ", email);
+                                            processSocial(email,"2", first_name, last_name, picture);
+                                        }
                                     }else{
                                         Toast.makeText(LoginActivity.this, "We are sorry, we can't get your email address. Please try another login option", Toast.LENGTH_SHORT).show();
                                     }
@@ -452,20 +458,36 @@ public class LoginActivity extends BaseActivity {
     private void updateUI(GoogleSignInAccount account){
         if(account != null){
             String name = account.getDisplayName();
+            String firstname = "";
+            if(account.getGivenName() != null) firstname = account.getGivenName();
+            String lastname = "";
+            if(account.getFamilyName() != null) lastname = account.getFamilyName();
+            String photourl = "";
+            if(account.getPhotoUrl() != null) photourl = String.valueOf(account.getPhotoUrl());
 
-            String personEmail = account.getEmail();
-            Log.d("name/email===>", name + "/" + personEmail);
-            processSocial(personEmail,"1");
+            String personEmail = "";
+            if(account.getEmail() != null) personEmail = account.getEmail();
+            if(personEmail.length()==0){
+                Toast.makeText(this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
+            }else{
+                Log.d("name/email===>", name + "/" + personEmail);
+                processSocial(personEmail,"1", firstname, lastname, photourl);
+            }
         }
     }
 
-    private void processSocial(String email, String signuptype) {
+    private void processSocial(String email, String signuptype, String firstname, String lastname, String photourl) {
         Map<String, String> params = new HashMap<>();
 
+        params.put("first_name", firstname);
+        params.put("last_name", lastname);
         params.put("email", email);
         params.put("password", "social");
+        params.put("phonenumber", "");
+        params.put("photo", photourl);
         params.put("account_type", signuptype);
-        call_postApi(Constants.BASE_URL, "login", params);
+        params.put("social_id", "");
+        call_postApi(Constants.BASE_URL, "loginonloginpage", params);
     }
 
     private void socialLogout(){

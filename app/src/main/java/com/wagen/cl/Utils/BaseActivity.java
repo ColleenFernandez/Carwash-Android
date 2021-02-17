@@ -104,6 +104,39 @@ public class BaseActivity extends AppCompatActivity {
         progressBar.setProgress(0);
 
     }
+    public void call_postApiwithoutprogress(String baseurl, String method, Map<String, String> params){
+
+        StringRequest myRequest = new StringRequest(
+                Request.Method.POST,
+                baseurl+method,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String json) {
+
+                        Parseresonse(json, method);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error============", String.valueOf(error));
+
+                        Toast.makeText(BaseActivity.this, getString(R.string.somethingwentwrong), Toast.LENGTH_SHORT).show();
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.d("paramsnewprduct==", params.toString());
+                return params;
+            }
+        };
+        myRequest.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        WagenApplication.getInstance().addToRequestQueue(myRequest, "tag");
+    }
 
     public void call_postApi(String baseurl, String method, Map<String, String> params){
         progressBar.show();
@@ -176,7 +209,8 @@ public class BaseActivity extends AppCompatActivity {
             if (result_code.equals("success")) {
                returnapireponse(response, method);
             }else {
-                Toast.makeText(BaseActivity.this, result_code, Toast.LENGTH_SHORT).show();
+                if(method.equals("login"))  returnapireponse(response, method);
+                else Toast.makeText(BaseActivity.this, result_code, Toast.LENGTH_SHORT).show();
             }
         } catch(JSONException e){
             e.printStackTrace();
