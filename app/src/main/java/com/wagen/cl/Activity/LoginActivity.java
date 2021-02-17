@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //.requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -390,7 +390,10 @@ public class LoginActivity extends BaseActivity {
                                         String last_name = "";
                                         if(object.getString("last_name") != null) last_name = object.getString("last_name");
                                         String picture = "";
-                                        if(object.getString("picture") != null) picture =object.getString("picture");
+                                       // if(object.getString("picture") != null) picture =object.getString("picture");
+                                        if(object.getString("id") != null) picture ="http://graph.facebook.com/"+object.getString("id")+"/picture?type=large";
+
+                                        Log.d("photo_facebook==", object.toString());
 
                                         if(email.length()==0) {
                                             Toast.makeText(LoginActivity.this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
@@ -409,7 +412,7 @@ public class LoginActivity extends BaseActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name, first_name, last_name, email, gender, birthday, picture.type(large)");
+                parameters.putString("fields", "id, name, first_name, last_name, email, gender, birthday, picture");
                 request.setParameters(parameters);
                 request.executeAsync();
 

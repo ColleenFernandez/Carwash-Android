@@ -372,7 +372,8 @@ public class SignupActivity extends BaseActivity {
                                         String last_name = "";
                                         if(object.getString("last_name") != null) last_name = object.getString("last_name");
                                         String picture = "";
-                                        if(object.getString("picture") != null) picture =object.getString("picture");
+                                        //if(object.getString("picture") != null) picture =object.getString("picture");
+                                        if(object.getString("id") != null) picture ="http://graph.facebook.com/"+object.getString("id")+"/picture?type=large";
 
                                         if(email.length()==0) {
                                             Toast.makeText(SignupActivity.this, getString(R.string.cannotgetaddress), Toast.LENGTH_SHORT).show();
