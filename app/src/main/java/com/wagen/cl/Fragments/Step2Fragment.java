@@ -108,10 +108,10 @@ public class Step2Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("carid==", String.valueOf(Constants.orderModel.car_id));
-        if(Constants.orderModel.order_type == 0 || Constants.orderModel.order_type == -1) {
+        if(Constants.orderModel.order_type == 0) {
             selected_option1();
         }
-        else if(Constants.orderModel.order_type == 1) selected_option2();
+        else if(Constants.orderModel.order_type == 1 || Constants.orderModel.order_type == -1) selected_option2();
 
     }
 

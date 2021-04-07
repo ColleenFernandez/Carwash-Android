@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyt_bottomsheet"
+    android:orientation="vertical"
+    android:background="@drawable/aler_stroke_rect"
+    app:behavior_hideable="true"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_gravity="center"
+    app:layout_constrainedHeight="true"
+    android:padding="10dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Advertencia"
+            android:gravity="center"
+
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/txv_title"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/close"
+            android:layout_gravity="right"
+            android:id="@+id/imv_close"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:id="@+id/lyt_address">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="Debes registrar tu número de celular en tu perfil antes de reservar el servicio"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/cancel"
+            android:id="@+id/txv_cancel"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/cancelground"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_height="40dp"
+            android:text="OK"
+            android:id="@+id/txv_select"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/selectedbuttonback"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

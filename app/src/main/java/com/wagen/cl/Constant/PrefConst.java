@@ -18,6 +18,10 @@ public class PrefConst {
     public static final String PREFKEY_WORKSHOP = "workshop";
     public static final String PREFKEY_MEMBERSHIP = "membership";
     public static final String PREFKEY_COUPON = "couponcodes";
+    public static final String PREFKEY_INTROURL = "introurl";
+    public static final String PREFKEY_TERMSURL = "termsurl";
+    public static final String PREFKEY_PRIVACYURL = "privacyurl";
+    public static final String PREFKEY_SERVICIOS = "aboutservicios";
 
     public static final String LOADING_DATA_TYPE="loadingdatatype";   // 0: current log, 1: archived data
 

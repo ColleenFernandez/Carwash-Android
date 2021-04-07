@@ -148,7 +148,8 @@ public class OrderdetailActivity extends BaseActivity {
                 ArrayList<PackagePricesModel> packagePricesModels = packages.get(i).packagePricesModels;
                 for(int j=0; j< packagePricesModels.size(); j++){
                     if(packagePricesModels.get(j).car_id == Constants.orderModel.car_id){
-                        totalprice+=Integer.parseInt(packagePricesModels.get(j).price);
+                        if(Constants.orderModel.order_type == 0)  totalprice+=Integer.parseInt(packagePricesModels.get(j).price);
+                        else if(Constants.orderModel.order_type == 1)  totalprice+=Integer.parseInt(packagePricesModels.get(j).price_home);
                     }
                 }
                // totalprice+= Integer.parseInt(packages.get(i).package_price);

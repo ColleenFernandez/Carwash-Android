@@ -27,6 +27,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
+import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -310,6 +311,12 @@ public class LoginActivity extends BaseActivity {
                     couponcodes1.add(onecoupon);
                 }
                 Preference.getInstance().putSharedcouponPreference(LoginActivity.this, PrefConst.PREFKEY_COUPON, couponcodes1);
+
+                JSONObject weburls = response.getJSONObject("weburls");
+                Preference.getInstance().put(LoginActivity.this, PrefConst.PREFKEY_INTROURL, weburls.getString("intro_url"));
+                Preference.getInstance().put(LoginActivity.this, PrefConst.PREFKEY_TERMSURL, weburls.getString("terms_url"));
+                Preference.getInstance().put(LoginActivity.this, PrefConst.PREFKEY_PRIVACYURL, weburls.getString("privacy_url"));
+                Preference.getInstance().put(LoginActivity.this, PrefConst.PREFKEY_SERVICIOS, weburls.getString("aboutservicios_url"));
 
                // if( userModel.account_type== 1) socialLogout();
 

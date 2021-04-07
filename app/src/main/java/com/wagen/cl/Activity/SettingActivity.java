@@ -45,24 +45,34 @@ public class SettingActivity extends BaseActivity {
     }
 
     public void gototerms(View view) {
-        String url = "https://servicioswagen.cl/admin/terms.pdf";
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        String url = Preference.getInstance().getValue(SettingActivity.this, PrefConst.PREFKEY_TERMSURL, "");
+        if(url.length()>0) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
     }
 
     public void gotoprivicy(View view) {
-        String url = "https://servicioswagen.cl/admin/Privacy_Policy.pdf";
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        String url = Preference.getInstance().getValue(SettingActivity.this, PrefConst.PREFKEY_PRIVACYURL, "");
+        if(url.length()>0) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
     }
 
     public void showservice(View view) {
-        TouchImageView img = new TouchImageView(this);
+        String url = Preference.getInstance().getValue(SettingActivity.this, PrefConst.PREFKEY_SERVICIOS, "");
+        if(url.length()>0) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+        /*TouchImageView img = new TouchImageView(this);
         img.setBackgroundColor(getResources().getColor(R.color.black));
         img.setImageResource(R.drawable.aboutservice);
         img.setMaxZoom(4f);
-        setContentView(img);
+        setContentView(img);*/
     }
 }

@@ -22,7 +22,7 @@
                 android:angle="270" />
 
             <corners
-                android:radius="4dp" />
+                android:radius="10dp" />
             <padding
                 android:left="2dp"
                 android:top="2dp"

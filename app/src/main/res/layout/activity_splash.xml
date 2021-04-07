@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="2020 Andres O All Rights Reversed"
+        android:text="2020 Wagen SpA All Rights Reversed"
         android:textColor="@color/black"
         android:layout_marginBottom="20dp"/>
 

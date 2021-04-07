@@ -213,6 +213,12 @@ public class SplashActivity extends BaseActivity {
                 }
                 Preference.getInstance().putSharedcouponPreference(SplashActivity.this, PrefConst.PREFKEY_COUPON, couponcodes1);
 
+                JSONObject weburls = response.getJSONObject("weburls");
+                Preference.getInstance().put(SplashActivity.this, PrefConst.PREFKEY_INTROURL, weburls.getString("intro_url"));
+                Preference.getInstance().put(SplashActivity.this, PrefConst.PREFKEY_TERMSURL, weburls.getString("terms_url"));
+                Preference.getInstance().put(SplashActivity.this, PrefConst.PREFKEY_PRIVACYURL, weburls.getString("privacy_url"));
+                Preference.getInstance().put(SplashActivity.this, PrefConst.PREFKEY_SERVICIOS, weburls.getString("aboutservicios_url"));
+
                 // if( userModel.account_type== 1) socialLogout();
 
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);

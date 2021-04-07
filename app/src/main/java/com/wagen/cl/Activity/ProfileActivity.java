@@ -153,6 +153,7 @@ public class ProfileActivity extends BaseActivity {
         imv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                settingdialog.dismiss();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -161,6 +162,7 @@ public class ProfileActivity extends BaseActivity {
         settingdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                settingdialog.dismiss();
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

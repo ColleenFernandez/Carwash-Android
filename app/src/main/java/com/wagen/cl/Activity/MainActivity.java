@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity {
 
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         indicator_line.setViewPager(viewPager);
+
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
@@ -85,16 +87,48 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotobookingservice(View view) {
-        Intent intent = new Intent(this, Order1Activity.class);
-        startActivity(intent);
-        finish();
+        if(Constants.userModel.phonenumber == null || Constants.userModel.phonenumber.length()<7){
+            Dialog settingdialog = new Dialog(this);
+            settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            settingdialog.setContentView(R.layout.phoneconfirm_dialog);
+            settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            settingdialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+
+            TextView txvcancel = (TextView)settingdialog.findViewById(R.id.txv_cancel);
+            TextView txvokay = (TextView)settingdialog.findViewById(R.id.txv_select);
+            txvokay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    settingdialog.dismiss();
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            });
+            txvcancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    settingdialog.dismiss();
+                }
+            });
+
+            settingdialog.show();
+
+        }else {
+            Intent intent = new Intent(this, Order1Activity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void gotomybooking(View view) {
-        Constants.frompagestatus_fororderlist = 0;
-        Intent intent = new Intent(this, MybookingActivity.class);
-        startActivity(intent);
-        finish();
+
+            Constants.frompagestatus_fororderlist = 0;
+            Intent intent = new Intent(this, MybookingActivity.class);
+            startActivity(intent);
+            finish();
+
     }
 
     public void gotomyprofile(View view) {
@@ -124,7 +158,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void gotodetail(View view) {
-        Dialog settingdialog = new Dialog(this);
+        String url = Preference.getInstance().getValue(MainActivity.this, PrefConst.PREFKEY_INTROURL, "");
+        if(url.length()>0){
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+        /*Dialog settingdialog = new Dialog(this);
         settingdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         settingdialog.setContentView(R.layout.quees_dialog);
         settingdialog.getWindow().setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -137,7 +177,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        settingdialog.show();
+        settingdialog.show();*/
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

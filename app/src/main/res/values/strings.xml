@@ -100,7 +100,7 @@
     <string name="somethingwentwrong">Algo salió mal</string>
     <string name="take_photo">Toma un Foto</string>
     <string name="choose_from_gallery">Elegir desde la Galería</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Cancelar</string>
     <string name="photo_upload_is_failed">Foto cargada con error</string>
     <string name="enter_firstname">Por favor ingresa tu nombre</string>
     <string name="enter_lastname">Por favor ingresa tu apellido</string>
@@ -189,6 +189,13 @@
         <item>Servicios adicionales</item>
         <item>Fecha y Hora</item>
     </array>
+
+    <string-array name="steps">
+        <item>Inicio</item>
+        <item>Tipo de lavado</item>
+        <item>Adicionales</item>
+        <item>Fecha y hora</item>
+    </string-array>
 
 
 </resources>
